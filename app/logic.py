@@ -118,7 +118,7 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
-            if tile.x >= self.width or tile.x < 0 or tile.y >= self.height or tile.y < 0:
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
             val = self.board[point.x][point.y]
             if (val == 0 or val == 3 or val == 7):
