@@ -84,7 +84,7 @@ class GameBoard():
         """
         queue = []
         visited = set()
-        pg = {}
+        pg = {} # parent graph
 
         # add the tiles around the head
         self.enqueue_around_head(start, queue)
@@ -118,10 +118,10 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
-                continue
-            val = self.board[point.x][point.y]
-            if (val == 0 or val == 3 or val == 7):
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
+                continue # if it is out of bounds, the iteration is skipped
+            val = self.board[point.x][point.y] 
+            if (val == 0 or val == 3 or val == 7): 
                 queue.append(point)
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph):
