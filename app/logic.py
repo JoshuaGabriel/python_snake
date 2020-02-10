@@ -121,7 +121,7 @@ class GameBoard():
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
             val = self.board[point.x][point.y] 
-            if (val == 0 or val == 3 or val == 7): 
+            if (val == 0 or val == 3 or val == 7): #queue is only filled with 0,3,7 to start with
                 queue.append(point)
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph):
