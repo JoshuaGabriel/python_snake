@@ -63,11 +63,9 @@ def move():
     head = data["you"]["body"][0]
 
 
-
-
-    # if the biggest snake (by 3 units go for kill mode)
-    
     if(move_data!=-1):
+        print("my count ",board.bodycount())
+        print("snakebodycount ",board.snakebodycount())
         if(board.bodycount()>board.snakebodycount() and data["turn"]>45):
             move_data = board.bfs(Point(data=head), 1) # go for kill 
         
