@@ -34,7 +34,8 @@ class GameBoard():
     6 - You tail
     7 - food
     """
-
+    CountSnakeBody = 0
+    CountMyBody = 0
     def __init__(self, data=None):
         """Creates a new game board"""
         if data == None:
@@ -44,8 +45,6 @@ class GameBoard():
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
-        self.CountSnakeBody = 0
-        self.CountMyBody = 0
 
 
         # init board
@@ -57,11 +56,12 @@ class GameBoard():
 
         # go through all the snakes and add them to the board
         max_prev_count = 0 
+        GameBoard.CountSnakeBody = 0
         for snake in data["board"]["snakes"]:
             self.CountSnakeBody = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-                self.CountSnakeBody+=1
+                GameBoard.CountSnakeBody+=1
             # add tail
             tail = snake["body"][-1]
             self.board[tail["x"]][tail["y"]] = 3
@@ -69,19 +69,20 @@ class GameBoard():
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
 
-            if(self.CountSnakeBody>max_prev_count):
-                max_prev_count = self.CountSnakeBody
+            if(GameBoard.CountSnakeBody>max_prev_count):
+                max_prev_count = GameBoard.CountSnakeBody
 
-        self.CountSnakeBody = max_prev_count
+        GameBoard.CountSnakeBody = max_prev_count
 
         # go through the food and add it to the board
         for food in data["board"]["food"]:
             self.board[food["x"]][food["y"]] = 7
 
         # go through self
+        GameBoard.CountMyBody = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            self.CountMyBody += 1
+            GameBoard.CountMyBody += 1
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -92,15 +93,6 @@ class GameBoard():
 
         print("This is the created board")
         self.printBoard()
-
-    #returns how big you are
-    def bodycount(self):
-        return self.CountMyBody
-    
-    #returns the biggest snake body count
-    def snakebodycount(self):
-        return self.CountSnakeBody
-
 
     def printBoard(self):
         for x in range(0, self.height):
@@ -192,6 +184,8 @@ class GameBoard():
 
     def kill_snakes(self):
         move_data = -1
-        if(self.CountMyBody>self.CountSnakeBody and data["turn"]>50):
+        print("self.CountMyBody: ",GameBoard.CountMyBody)
+        print("self.CountSnakeBody: ",GameBoard.CountSnakeBody)
+        if(GameBoard.CountMyBody>GameBoard.CountSnakeBody and data["turn"]>50):
             move_data = board.bfs(Point(data=head), 1) # go for kill 
         return move_data

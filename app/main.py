@@ -78,11 +78,12 @@ def move():
 
     # last resort option
     '''
-    TODO: Kill strategy
+    TODO: Kill strategy, their head on the edge and mine is x+1,y x-1,y x,y+1 x,y-1 then trap them
     '''
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 
+    print(move_data)
     direction = directions[move_data]
 
     print("Direction: ", direction)
