@@ -56,36 +56,33 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
-
-    """
-    TODO: Using the data from the endpoint request object, your
-            snake AI must choose a direction to move in.
-    """
     print(json.dumps(data))
-
     directions = ['up', 'down', 'left', 'right']
-
+    move_data = 0 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
-    move_data = 0 
+
+
+
     # if the biggest snake (by 3 units go for kill mode)
     
     if(move_data!=-1):
+        if(board.bodycount()>board.snakebodycount() and data["turn"]>45):
+            move_data = board.bfs(Point(data=head), 1)
+        
         move_data = board.bfs(Point(data=head), 7) # go for food
-        # if(my_health>other_snake_health and turn>40):
-        #     move_data = board.bfs(Point(data=head),1)
+    
     else:
         move_data = board.bfs(Point(data=head), 6) # go for your tail
     
-    # while(move_data ==-1):
-    #     move_data = board.bfs(Point(data=head),3)
-        # if(move_data == -1):
-        #     move_data = board.turtle(Point(data=head))
 
 
 
-
+    # last resort option
+    '''
+    TODO: 
+    '''
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 

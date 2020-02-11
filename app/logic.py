@@ -44,7 +44,9 @@ class GameBoard():
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
-
+        self.count_snake_body = 0
+        self.count_my_body = 0
+        
         # init board
         for _ in range(0, self.width):
             column = []
@@ -53,15 +55,20 @@ class GameBoard():
             self.board.append(column)
 
         # go through all the snakes and add them to the board
+        max_prev_count = 0
         for snake in data["board"]["snakes"]:
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
+                self.count_snake_body+=1
             # add tail
             tail = snake["body"][-1]
             self.board[tail["x"]][tail["y"]] = 3
             # add head
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
+
+            if(self.count_snake_body>max_prev_count):
+                max_prev_count = self.count_snake_body
 
         # go through the food and add it to the board
         for food in data["board"]["food"]:
@@ -70,6 +77,7 @@ class GameBoard():
         # go through self
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
+            self.count_my_body += 1
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -80,6 +88,14 @@ class GameBoard():
 
         print("This is the created board")
         self.printBoard()
+
+    #returns how big you are
+    def bodycount(self):
+        return self.count_my_body
+    
+    #returns the biggest snake body count
+    def snakebodycount(self):
+        return self.count_snake_body
 
 
     def printBoard(self):
@@ -130,7 +146,7 @@ class GameBoard():
             if tile_val == 0:
                 self.enqueue_around_point(tile, queue, visited, pg)
         
-        return -1
+        return -1  #it didnt find what it was looking for 
 
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
