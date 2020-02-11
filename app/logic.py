@@ -22,8 +22,6 @@ class Point:
     def __repr__(self):
         return "x: " + str(self.x) + " y: " + str(self.y)
 
-count_my_body = 0
-count_snake_body = 0
 
 class GameBoard():
     """
@@ -46,10 +44,10 @@ class GameBoard():
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
-        
+        self.CountSnakeBody = 0
+        self.CountMyBody = 0
 
-        global count_my_body
-        global count_snake_body
+
         # init board
         for _ in range(0, self.width):
             column = []
@@ -60,10 +58,10 @@ class GameBoard():
         # go through all the snakes and add them to the board
         max_prev_count = 0 
         for snake in data["board"]["snakes"]:
-            count_snake_body = 0
+            self.CountSnakeBody = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-                count_snake_body+=1
+                self.CountSnakeBody+=1
             # add tail
             tail = snake["body"][-1]
             self.board[tail["x"]][tail["y"]] = 3
@@ -71,20 +69,19 @@ class GameBoard():
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
 
-            if(count_snake_body>max_prev_count):
-                max_prev_count = count_snake_body
+            if(self.CountSnakeBody>max_prev_count):
+                max_prev_count = self.CountSnakeBody
 
-        count_snake_body = max_prev_count
+        self.CountSnakeBody = max_prev_count
 
         # go through the food and add it to the board
         for food in data["board"]["food"]:
             self.board[food["x"]][food["y"]] = 7
 
         # go through self
-        count_my_body = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            count_my_body += 1
+            self.CountMyBody += 1
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -97,14 +94,12 @@ class GameBoard():
         self.printBoard()
 
     #returns how big you are
-    @staticmethod
-    def bodycount():
-        return count_my_body
+    def bodycount(self):
+        return self.CountMyBody
     
     #returns the biggest snake body count
-    @staticmethod
-    def snakebodycount():
-        return count_snake_body
+    def snakebodycount(self):
+        return self.CountSnakeBody
 
 
     def printBoard(self):
@@ -139,7 +134,6 @@ class GameBoard():
 
             # print("tile: ", end='')
             # print(str(tile))
-
             # print("queue:", queue)
 
             tile_val = self.board[tile.x][tile.y]
@@ -195,3 +189,8 @@ class GameBoard():
 
     def turtle():
         pass
+
+    def kill_snakes(self):
+        if(self.CountMyBody>self.CountSnakeBody):
+            move_data = board.bfs(Point(data=head), 1) # go for kill 
+        return move_data

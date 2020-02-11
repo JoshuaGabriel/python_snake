@@ -63,13 +63,19 @@ def move():
     head = data["you"]["body"][0]
 
 
+    
+    
+    
+    
     if(move_data!=-1):
+
+
+        move_data = board.kill_snakes()
+
         print("my count ",board.bodycount())
         print("snakebodycount ",board.snakebodycount())
-        if(board.bodycount()>board.snakebodycount() and data["turn"]>45):
-            move_data = board.bfs(Point(data=head), 1) # go for kill 
-        else:
-            move_data = board.bfs(Point(data=head), 7) # go for food
+
+        #move_data = board.bfs(Point(data=head), 7) # go for food
     else:
         move_data = board.bfs(Point(data=head), 6) # go for your tail
     
@@ -78,7 +84,7 @@ def move():
 
     # last resort option
     '''
-    TODO: 
+    TODO: Kill strategy
     '''
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
@@ -88,6 +94,10 @@ def move():
     print("Direction: ", direction)
 
     return move_response(direction)
+
+
+
+
 
 
 @bottle.post('/end')
