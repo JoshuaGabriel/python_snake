@@ -12,6 +12,9 @@ class Point:
     def __str__(self):
         return "x: " + str(self.x) + " y: " + str(self.y)
 
+    def __repr__(self):
+        return "x: " + str(self.x) + " y: " + str(self.y)
+
 
 class GameBoard():
     """
@@ -74,7 +77,7 @@ class GameBoard():
     def printBoard(self):
         for x in range(0, self.height):
             for y in range(0, self.width):
-                print(self.board[y]," ",[x], end='')
+                print(self.board[y][x], end=' ')
             print()
 
     def bfs(self, start, num):
