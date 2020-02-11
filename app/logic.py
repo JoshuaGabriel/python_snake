@@ -76,6 +76,7 @@ class GameBoard():
             self.board[food["x"]][food["y"]] = 7
 
         # go through self
+        count_my_body = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
             count_my_body += 1
