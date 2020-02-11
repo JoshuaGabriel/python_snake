@@ -66,7 +66,7 @@ class GameBoard():
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
 
-            if(self.count_snake_body>max_prev_count):
+            if(count_snake_body>max_prev_count):
                 max_prev_count = self.count_snake_body
 
         count_snake_body = max_prev_count
