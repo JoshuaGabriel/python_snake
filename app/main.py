@@ -68,15 +68,11 @@ def move():
     
     
     if(move_data!=-1):
-
-
         move_data = board.kill_snakes()
 
-        print("my count ",board.bodycount())
-        print("snakebodycount ",board.snakebodycount())
-
-        #move_data = board.bfs(Point(data=head), 7) # go for food
-    else:
+    
+    
+    if(move_data==-1):
         move_data = board.bfs(Point(data=head), 6) # go for your tail
     
 
