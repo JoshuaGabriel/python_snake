@@ -74,7 +74,7 @@ class GameBoard():
     def printBoard(self):
         for x in range(0, self.height):
             for y in range(0, self.width):
-                print(self.board[x][y], end='')
+                print(self.board[y]," ",[x], end='')
             print()
 
     def bfs(self, start, num):
@@ -100,6 +100,8 @@ class GameBoard():
 
             print("tile: ", end='')
             print(str(tile))
+
+            print("queue:", queue)
 
             tile_val = self.board[tile.x][tile.y]
 
@@ -134,9 +136,10 @@ class GameBoard():
 
     def get_relative_direction(self, start, end, pg):
         temp = end
+        print("pg before loop",pg)
         while temp in pg:
             temp = pg[temp]
-
+        print("pg after loop",pg)
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
