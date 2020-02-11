@@ -56,9 +56,8 @@ class GameBoard():
 
         # go through all the snakes and add them to the board
         max_prev_count = 0 
-        GameBoard.CountSnakeBody = 0
         for snake in data["board"]["snakes"]:
-            self.CountSnakeBody = 0
+            GameBaord.CountSnakeBody = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
                 GameBoard.CountSnakeBody+=1
