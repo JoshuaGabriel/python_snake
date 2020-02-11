@@ -6,7 +6,6 @@ Problems arise when
 '''
 
 
-
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -82,6 +81,7 @@ class GameBoard():
         print("This is the created board")
         self.printBoard()
 
+
     def printBoard(self):
         for x in range(0, self.height):
             for y in range(0, self.width):
@@ -105,15 +105,15 @@ class GameBoard():
 
         # While we are still in the queue
         while len(queue) != 0:
-            print("Visited: ", visited)
+            # print("Visited: ", visited)
 
             tile = queue.pop(0)
             if tile.x >= self.width or tile.x < 0 or tile.y >= self.height or tile.y < 0:
                 continue
 
 
-            print("tile: ", end='')
-            print(str(tile))
+            # print("tile: ", end='')
+            # print(str(tile))
 
             # print("queue:", queue)
 

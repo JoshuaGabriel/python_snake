@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-import time
+
 
 from app.api import ping_response, start_response, move_response, end_response
 from app.logic import *
@@ -68,19 +68,27 @@ def move():
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
-    start_time = time.time()
-    move_data = board.bfs(Point(data=head), 7)
+    move_data = 0 
+    # if the biggest snake (by 3 units go for kill mode)
     
-    if(move_data==-1):
-        move_data = board.bfs(Point(data=head),6)
+    if(move_data!=-1):
+        move_data = board.bfs(Point(data=head), 7) # go for food
+        # if(my_health>other_snake_health and turn>40):
+        #     move_data = board.bfs(Point(data=head),1)
+    else:
+        move_data = board.bfs(Point(data=head), 6) # go for your tail
     
-    elapsed_time = time.time() - start_time
-    print(elapsed_time)
 
     # while(move_data ==-1):
     #     move_data = board.bfs(Point(data=head),3)
         # if(move_data == -1):
         #     move_data = board.turtle(Point(data=head))
+
+
+
+
+    if(move_data==1):
+        move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 
     direction = directions[move_data]
 
