@@ -75,6 +75,9 @@ class GameBoard():
 
             if(GameBoard.CountSnakeBody>max_prev_count):
                 max_prev_count = GameBoard.CountSnakeBody
+        print("fl",GameBoard.CountSnakeBody)
+        print("fl",GameBoard.CountMyBody)
+        
 
         GameBoard.CountSnakeBody = max_prev_count
 
@@ -87,6 +90,8 @@ class GameBoard():
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
             GameBoard.CountMyBody += 1
+        print("sl",GameBoard.CountSnakeBody)
+        print("sl",GameBoard.CountMyBody)
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -188,8 +193,8 @@ class GameBoard():
 
     def kill_snakes(self):
         move_data = -1
-        print("self.CountMyBody: ",GameBoard.CountMyBody)
-        print("self.CountSnakeBody: ",GameBoard.CountSnakeBody)
+        print("CountMyBody: ",GameBoard.CountMyBody)
+        print("CountSnakeBody: ",GameBoard.CountSnakeBody)
         if(GameBoard.CountMyBody>GameBoard.CountSnakeBody and data["turn"]>50):
             move_data = board.bfs(Point(data=head), 1) # go for kill 
         return move_data
