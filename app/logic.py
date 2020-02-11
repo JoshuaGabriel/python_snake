@@ -57,6 +57,7 @@ class GameBoard():
         # go through all the snakes and add them to the board
         max_prev_count = 0
         for snake in data["board"]["snakes"]:
+            self.count_snake_body = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
                 self.count_snake_body+=1
@@ -69,6 +70,8 @@ class GameBoard():
 
             if(self.count_snake_body>max_prev_count):
                 max_prev_count = self.count_snake_body
+
+        self.count_snake_body = max_prev_count
 
         # go through the food and add it to the board
         for food in data["board"]["food"]:
@@ -94,7 +97,7 @@ class GameBoard():
         return self.count_my_body
     
     #returns the biggest snake body count
-    def snakebodycount(self):
+    def snakebodycount():
         return self.count_snake_body
 
 
