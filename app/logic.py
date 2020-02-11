@@ -78,13 +78,16 @@ class GameBoard():
         print("fl",GameBoard.CountSnakeBody)
         print("fl",GameBoard.CountMyBody)
         
-
         GameBoard.CountSnakeBody = max_prev_count
 
+
+        print("tl",GameBoard.CountSnakeBody)
         # go through the food and add it to the board
         for food in data["board"]["food"]:
             self.board[food["x"]][food["y"]] = 7
 
+        print("gl",GameBoard.CountSnakeBody)
+        
         # go through self
         GameBoard.CountMyBody = 0
         for you in data["you"]["body"]:
