@@ -78,7 +78,6 @@ def move():
     else:
         move_data = board.bfs(Point(data=head), 6) # go for your tail
     
-
     # while(move_data ==-1):
     #     move_data = board.bfs(Point(data=head),3)
         # if(move_data == -1):
@@ -87,7 +86,7 @@ def move():
 
 
 
-    if(move_data==1):
+    if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 
     direction = directions[move_data]
