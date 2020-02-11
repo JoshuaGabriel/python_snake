@@ -124,8 +124,6 @@ class GameBoard():
 
             visited.add(str(tile))
 
-
-            print(tile_val)
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
 

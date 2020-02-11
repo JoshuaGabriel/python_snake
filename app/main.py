@@ -2,6 +2,7 @@ import json
 import os
 import random
 import bottle
+import time
 
 from app.api import ping_response, start_response, move_response, end_response
 from app.logic import *
@@ -67,10 +68,19 @@ def move():
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
+    start_time = time.time()
     move_data = board.bfs(Point(data=head), 7)
+    
+    if(move_data==-1):
+        move_data = board.bfs(Point(data=head),6)
+    
+    elapsed_time = time.time() - start_time
+    print(elapsed_time)
 
-    if(move_data == -1):
-        move_data = board.bfs(Point(data=head), 3)
+    # while(move_data ==-1):
+    #     move_data = board.bfs(Point(data=head),3)
+        # if(move_data == -1):
+        #     move_data = board.turtle(Point(data=head))
 
     direction = directions[move_data]
 
