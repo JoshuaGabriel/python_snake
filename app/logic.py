@@ -97,7 +97,7 @@ class GameBoard():
         return self.count_my_body
     
     #returns the biggest snake body count
-    def snakebodycount():
+    def snakebodycount(self):
         return self.count_snake_body
 
 
