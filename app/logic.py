@@ -1,3 +1,11 @@
+'''
+As of now, the bfs is a good search algorithm to find it's desired target 
+
+Problems arise when 
+
+'''
+
+
 
 class Point:
     def __init__(self, data=None, x=0, y=0):
@@ -84,11 +92,14 @@ class GameBoard():
         """
         Start is the point on the board we start looking from
         Num is the value (look at top) that we are looking for
-        """
+        """ 
+
         queue = []
         visited = set()
         pg = {} # parent graph
-
+        """
+        The parent graph (point:tile) points to the direction where it was generated
+        """
         # add the tiles around the head
         self.enqueue_around_head(start, queue)
 
@@ -104,7 +115,7 @@ class GameBoard():
             print("tile: ", end='')
             print(str(tile))
 
-            print("queue:", queue)
+            # print("queue:", queue)
 
             tile_val = self.board[tile.x][tile.y]
 
@@ -113,11 +124,15 @@ class GameBoard():
 
             visited.add(str(tile))
 
+
+            print(tile_val)
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
 
             if tile_val == 0:
                 self.enqueue_around_point(tile, queue, visited, pg)
+        
+        return -1
 
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
@@ -135,14 +150,14 @@ class GameBoard():
         for point in points:
             if not (point in visted):
                 queue.append(point)
-                parent_graph[point] = tile
+                parent_graph[point] = tile  # The points point to the tile
 
     def get_relative_direction(self, start, end, pg):
         temp = end
-        print("pg before loop",pg)
-        while temp in pg:
+
+        while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
-        print("pg after loop",pg)
+
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
@@ -155,3 +170,5 @@ class GameBoard():
         if diff_y == 1:
             return 0
 
+    def turtle():
+        pass

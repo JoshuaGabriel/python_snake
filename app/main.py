@@ -67,8 +67,13 @@ def move():
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
-    # when health < 50 go for food
-    direction = directions[board.bfs(Point(data=head), 7)]
+    move_data = board.bfs(Point(data=head), 7)
+
+    if(move_data == -1):
+        move_data = board.bfs(Point(data=head), 3)
+
+    direction = directions[move_data]
+
     print("Direction: ", direction)
 
     return move_response(direction)
