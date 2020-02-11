@@ -192,6 +192,6 @@ class GameBoard():
 
     def kill_snakes(self):
         move_data = -1
-        if(self.CountMyBody>self.CountSnakeBody):
+        if(self.CountMyBody>self.CountSnakeBody and data["turn"]>50):
             move_data = board.bfs(Point(data=head), 1) # go for kill 
         return move_data
