@@ -22,6 +22,8 @@ class Point:
     def __repr__(self):
         return "x: " + str(self.x) + " y: " + str(self.y)
 
+count_my_body = 0
+count_snake_body = 0
 
 class GameBoard():
     """
@@ -45,6 +47,9 @@ class GameBoard():
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
         
+
+        global count_my_body
+        global count_snake_body
         # init board
         for _ in range(0, self.width):
             column = []
@@ -76,7 +81,6 @@ class GameBoard():
             self.board[food["x"]][food["y"]] = 7
 
         # go through self
-        count_my_body = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
             count_my_body += 1
