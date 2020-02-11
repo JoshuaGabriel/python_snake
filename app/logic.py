@@ -34,8 +34,13 @@ class GameBoard():
     6 - You tail
     7 - food
     """
+
+
+    # takes count of how big/food-eaten my snake is and the biggest snake
     CountSnakeBody = 0
     CountMyBody = 0
+
+
     def __init__(self, data=None):
         """Creates a new game board"""
         if data == None:
@@ -57,7 +62,7 @@ class GameBoard():
         # go through all the snakes and add them to the board
         max_prev_count = 0 
         for snake in data["board"]["snakes"]:
-            GameBaord.CountSnakeBody = 0
+            GameBoard.CountSnakeBody = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
                 GameBoard.CountSnakeBody+=1
