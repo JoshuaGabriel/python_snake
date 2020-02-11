@@ -68,9 +68,8 @@ def move():
         print("snakebodycount ",board.snakebodycount())
         if(board.bodycount()>board.snakebodycount() and data["turn"]>45):
             move_data = board.bfs(Point(data=head), 1) # go for kill 
-        
-        move_data = board.bfs(Point(data=head), 7) # go for food
-    
+        else:
+            move_data = board.bfs(Point(data=head), 7) # go for food
     else:
         move_data = board.bfs(Point(data=head), 6) # go for your tail
     

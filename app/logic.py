@@ -44,8 +44,6 @@ class GameBoard():
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
-        self.count_snake_body = 0
-        self.count_my_body = 0
         
         # init board
         for _ in range(0, self.width):
@@ -55,12 +53,12 @@ class GameBoard():
             self.board.append(column)
 
         # go through all the snakes and add them to the board
-        max_prev_count = 0
+        max_prev_count = 0 
         for snake in data["board"]["snakes"]:
-            self.count_snake_body = 0
+            count_snake_body = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-                self.count_snake_body+=1
+                count_snake_body+=1
             # add tail
             tail = snake["body"][-1]
             self.board[tail["x"]][tail["y"]] = 3
@@ -71,7 +69,7 @@ class GameBoard():
             if(self.count_snake_body>max_prev_count):
                 max_prev_count = self.count_snake_body
 
-        self.count_snake_body = max_prev_count
+        count_snake_body = max_prev_count
 
         # go through the food and add it to the board
         for food in data["board"]["food"]:
@@ -80,7 +78,7 @@ class GameBoard():
         # go through self
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            self.count_my_body += 1
+            count_my_body += 1
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -93,12 +91,12 @@ class GameBoard():
         self.printBoard()
 
     #returns how big you are
-    def bodycount(self):
-        return self.count_my_body
+    def bodycount():
+        return count_my_body
     
     #returns the biggest snake body count
-    def snakebodycount(self):
-        return self.count_snake_body
+    def snakebodycount():
+        return count_snake_body
 
 
     def printBoard(self):
