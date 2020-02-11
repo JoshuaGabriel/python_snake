@@ -34,13 +34,6 @@ class GameBoard():
     6 - You tail
     7 - food
     """
-
-
-    # takes count of how big/food-eaten my snake is and the biggest snake
-    CountSnakeBody = 0
-    CountMyBody = 0
-
-
     def __init__(self, data=None):
         """Creates a new game board"""
         if data == None:
@@ -60,13 +53,10 @@ class GameBoard():
             self.board.append(column)
 
         # go through all the snakes and add them to the board
-        max_prev_count = 0 
-        GameBoard.CountSnakeBody = 0
         for snake in data["board"]["snakes"]:
-            GameBoard.CountSnakeBody = 0
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-                GameBoard.CountSnakeBody+=1
+            
             # add tail
             tail = snake["body"][-1]
             self.board[tail["x"]][tail["y"]] = 3
@@ -74,28 +64,13 @@ class GameBoard():
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
 
-            if(GameBoard.CountSnakeBody>max_prev_count):
-                max_prev_count = GameBoard.CountSnakeBody
-        print("fl",GameBoard.CountSnakeBody)
-        print("fl",GameBoard.CountMyBody)
-        
-        GameBoard.CountSnakeBody = max_prev_count
-
-
-        print("tl",GameBoard.CountSnakeBody)
         # go through the food and add it to the board
         for food in data["board"]["food"]:
             self.board[food["x"]][food["y"]] = 7
 
-        print("gl",GameBoard.CountSnakeBody)
-        
         # go through self
-        GameBoard.CountMyBody = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            GameBoard.CountMyBody += 1
-        print("sl",GameBoard.CountSnakeBody)
-        print("sl",GameBoard.CountMyBody)
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -135,7 +110,6 @@ class GameBoard():
             tile = queue.pop(0)
             if tile.x >= self.width or tile.x < 0 or tile.y >= self.height or tile.y < 0:
                 continue
-
 
             # print("tile: ", end='')
             # print(str(tile))
@@ -195,10 +169,10 @@ class GameBoard():
     def turtle():
         pass
 
-    def kill_snakes(self):
-        move_data = -1
-        print("CountMyBody: ",GameBoard.CountMyBody)
-        print("CountSnakeBody: ",GameBoard.CountSnakeBody)
-        if(GameBoard.CountMyBody>GameBoard.CountSnakeBody and data["turn"]>50):
-            move_data = board.bfs(Point(data=head), 1) # go for kill 
-        return move_data
+    # def kill_snakes(self):
+    #     move_data = -1
+    #     print("CountMyBody: ",GameBoard.CountMyBody)
+    #     print("CountSnakeBody: ",GameBoard.CountSnakeBody)
+    #     if(GameBoard.CountMyBody>GameBoard.CountSnakeBody and data["turn"]>50):
+    #         move_data = board.bfs(Point(data=head), 1) # go for kill 
+    #     return move_data

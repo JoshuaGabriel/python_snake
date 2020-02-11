@@ -64,7 +64,7 @@ def move():
 
 
 
-    move_data = board.kill_snakes()
+    # move_data = board.kill_snakes()
     
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 7) # go for your Food
