@@ -91,10 +91,12 @@ class GameBoard():
         self.printBoard()
 
     #returns how big you are
+    @staticmethod
     def bodycount():
         return count_my_body
     
     #returns the biggest snake body count
+    @staticmethod
     def snakebodycount():
         return count_snake_body
 
