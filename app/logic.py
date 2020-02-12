@@ -196,5 +196,5 @@ class GameBoard():
         print("CountMyBody: ",GameBoard.getMyBodyCount())
         print("CountSnakeBody: ",GameBoard.getSnakeBodyCount())
         if(GameBoard.getMyBodyCount()>GameBoard.getSnakeBodyCount() and data["turn"]>50):
-            move_data = board.bfs(Point(data=head), 1) # go for kill 
+            move_data = GameBoard.bfs(Point(data=head), 1) # go for kill 
         return move_data
