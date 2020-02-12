@@ -31,7 +31,6 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0
-    print("my counts are zero")
 
 
     def __init__(self, data=None):
@@ -178,6 +177,8 @@ class GameBoard():
     def turtle():
         pass
 
+
+    #BROKEN
     def kill_snakes(self,data):
         move_data = -1
         print("CountMyBody: ", GameBoard.MyBodyCount)
