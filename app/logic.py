@@ -53,8 +53,10 @@ class GameBoard():
         # go through all the snakes and add them to the board
         temporary_max_count = 0
         for snake in data["board"]["snakes"]:
+            print("data['board']['snakes']",data["board"]["snakes"])
             temporary_max_count = 0
             for bodypart in snake["body"]:
+                print("snake['body']",snake["body"])
                 self.board[bodypart["x"]][bodypart["y"]] = 2
                 temporary_max_count += 1
 
