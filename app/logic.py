@@ -191,7 +191,7 @@ class GameBoard():
     def turtle():
         pass
 
-    def kill_snakes(self):
+    def kill_snakes(self,data):
         move_data = -1
         print("CountMyBody: ",GameBoard.getMyBodyCount())
         print("CountSnakeBody: ",GameBoard.getSnakeBodyCount())
