@@ -29,9 +29,9 @@ class GameBoard():
     6 - You tail
     7 - food
     """
-
-    MyBodyCount     = 0
     SnakeBodyCount  = 0 
+    MyBodyCount     = 0
+
 
     def __init__(self, data=None):
         """Creates a new game board"""
