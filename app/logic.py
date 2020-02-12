@@ -67,8 +67,8 @@ class GameBoard():
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
 
-            if(temporary_max_count>GameBoard.SnakeBodyCount):
-                GameBoard.SnakeBodyCount = temporary_max_count
+            if(temporary_max_count>self.SnakeBodyCount):
+                self.SnakeBodyCount = temporary_max_count
 
 
         # go through the food and add it to the board
@@ -78,7 +78,7 @@ class GameBoard():
         # go through self
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            GameBoard.MyBodyCount+=1
+            self.MyBodyCount+=1
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -90,13 +90,12 @@ class GameBoard():
         print("This is the created board")
         self.printBoard()
 
-    @staticmethod
-    def getMyBodyCount():
-        return GameBoard.MyBodyCount
 
-    @staticmethod
-    def getSnakeBodyCount():
-        return GameBoard.SnakeBodyCount
+    def getMyBodyCount(self):
+        return self.MyBodyCount
+
+    def getSnakeBodyCount(self):
+        return self.SnakeBodyCount
 
 
     def printBoard(self):
