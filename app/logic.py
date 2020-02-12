@@ -1,9 +1,4 @@
-'''
-As of now, the bfs is a good search algorithm to find it's desired target 
 
-Problems arise when 
-
-'''
 
 
 class Point:
@@ -47,8 +42,8 @@ class GameBoard():
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
-        MyBodyCount     = 0
-        SnakeBodyCount  = 0 
+        GameBoard.MyBodyCount     = 0
+        GameBoard.SnakeBodyCount  = 0 
 
         # init board
         for _ in range(0, self.width):
