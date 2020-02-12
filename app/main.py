@@ -61,7 +61,7 @@ def move():
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
-    print(data["turn"])
+    print("turn: ",data["turn"])
 
     move_data = board.kill_snakes(data)
     

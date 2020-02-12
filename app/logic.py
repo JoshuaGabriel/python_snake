@@ -42,8 +42,6 @@ class GameBoard():
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
-        GameBoard.MyBodyCount     = 0
-        GameBoard.SnakeBodyCount  = 0 
 
         # init board
         for _ in range(0, self.width):
