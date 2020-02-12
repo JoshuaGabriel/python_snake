@@ -61,7 +61,7 @@ class GameBoard():
                 self.board[bodypart["x"]][bodypart["y"]] = 2
                 temporary_max_count += 1
 
-            if(temporary_max_count>GameBoard.getSnakeBodyCount()):
+            if(temporary_max_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_max_count
             # add tail
             tail = snake["body"][-1]
