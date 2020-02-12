@@ -56,28 +56,20 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
-    print(json.dumps(data))
     directions = ['up', 'down', 'left', 'right']
     move_data = 0 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
 
-
-    # move_data = board.kill_snakes()
+    move_data = board.kill_snakes()
     
-
+    # returns -1 if he is trapped (no food)
+    if(move_data==-1))
     move_data = board.bfs(Point(data=head), 7) # go for your Food
 
-    # if(move_data==-1):
-    #     move_data = board.bfs(Point(data=head), 7) # go for your Food
-
-    
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 6) # go for your tail
-    
-
-
 
     # last resort option
     '''
