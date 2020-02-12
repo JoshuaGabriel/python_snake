@@ -67,7 +67,7 @@ class GameBoard():
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
 
-            if(temporary_max_count>self.SnakeBodyCount):
+            if(temporary_max_count>self.getSnakeBodyCount()):
                 self.SnakeBodyCount = temporary_max_count
 
 
@@ -186,11 +186,11 @@ class GameBoard():
     def turtle():
         pass
 
-    def kill_snakes(self,data):
+    def kill_snakes(self,data,board):
         move_data = -1
-        print("CountMyBody: ",GameBoard.getMyBodyCount(self))
-        print("CountSnakeBody: ",GameBoard.getSnakeBodyCount(self))
-        if(GameBoard.getMyBodyCount()>GameBoard.getSnakeBodyCount() and data["turn"]>50):
+        print("CountMyBody: ", board.getMyBodyCount())
+        print("CountSnakeBody: ", board.getSnakeBodyCount())
+        if(board.getMyBodyCount()>board.getSnakeBodyCount() and data["turn"]>50):
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
         return move_data

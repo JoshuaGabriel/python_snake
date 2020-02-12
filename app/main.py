@@ -63,7 +63,7 @@ def move():
 
     print("turn: ",data["turn"])
 
-    move_data = board.kill_snakes(data)
+    move_data = board.kill_snakes(data,board)
     
     # returns -1 if he is trapped (no food)
     if(move_data==-1):
@@ -86,6 +86,9 @@ def move():
     TODO: If I'm the biggest snake by 2-3 foods then I'll kill (done) 
     TODO: If it is a 1vs1 scenario and I am smaller then I need to collect food 
     '''
+
+
+
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 
