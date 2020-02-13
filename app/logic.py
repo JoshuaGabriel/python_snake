@@ -158,7 +158,7 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
-            if (not (point in visted)) and GameBoard.safety_protocol(point,num):
+            if (not (point in visted)) and self.safety_protocol(point,num):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
