@@ -88,6 +88,9 @@ def move():
     '''
 
     if(move_data==-1):
+        move_data = board.bfs(Point(data=head), 3) # go for enemy tail
+    
+    if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 
 
