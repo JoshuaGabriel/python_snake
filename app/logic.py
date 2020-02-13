@@ -43,6 +43,10 @@ class GameBoard():
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
 
+
+        GameBoard.DidIJustEat = False
+
+
         # init board
         for _ in range(0, self.width):
             column = []
@@ -152,9 +156,9 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         valid_tiles = [0,3,6,7]
-        if(GameBoard.DidIJustEat()):
+        #safety measure to not enqueue the tail if I just ate a food
+        if(GameBoard.DidIJustEat):
             valid_tiles.remove(6)
-
 
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
@@ -179,6 +183,9 @@ class GameBoard():
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
 
+        if(self.board[temp.x][temp.y]==7):
+            GameBoard.DidIJustEat = True
+        
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
@@ -210,7 +217,6 @@ class GameBoard():
                 pass
         
         return True
-    
 
 
     @staticmethod
