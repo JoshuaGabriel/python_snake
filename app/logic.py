@@ -31,7 +31,7 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0 
-    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
+    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
     Storage_dict    = {} # Stores the health of an individual snake
 
     def __init__(self, data=None):
@@ -200,7 +200,8 @@ class GameBoard():
 
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
-        
+        print(temp)
+
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
