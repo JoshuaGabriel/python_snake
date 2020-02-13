@@ -230,7 +230,7 @@ class GameBoard():
         move_data = -1
         print("CountMyBody: ", GameBoard.MyBodyCount)
         print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
-        if(GameBoard.MyBodyCount>=GameBoard.SnakeBodyCount+2 and data["turn"]>50):
+        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50):
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
         return move_data
