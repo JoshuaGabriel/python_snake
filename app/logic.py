@@ -200,6 +200,11 @@ class GameBoard():
 
     # returns false if the tile is dangerous (beside an opponent snake head)
     # return true if the tile is safe
+    '''
+    TODO: need to say that it is safe to hit a head if I'm beside a snake with a lower health (not necessarily the biggest health)
+    plan:
+        implement other snake's ID or health to their head
+    '''
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
@@ -220,6 +225,10 @@ class GameBoard():
 
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
+
+    '''
+    TODO: need to check further squares AND if the tail is not in sight only then will it be a trapped square 
+    '''
     def trap_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
@@ -282,6 +291,11 @@ Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e651
                     
                     kill_snake bug (dies of starvation)
                     https://play.battlesnake.com/g/9a0e8a9c-8276-4311-b2e4-7c810a21b1ef/
+
+
+                    trapped squares
+                    https://play.battlesnake.com/g/1c2762c9-e322-49ac-9975-6510674ffd78/
+                    
 
 
 '''
