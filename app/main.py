@@ -78,7 +78,8 @@ def move():
     TODO: Not enter Trap phases (1 block beside a snake if im smaller)
     
     #Essential Priority (survival)
-    TODO: Kill strategy, their head on the edge and mine is x+1,y x-1,y x,y+1 x,y-1 then trap them (also implement to AVOID dying to this) (mid game3)
+    TODO: Kill strategy, their head on the edge and mine is x+1,y x-1,y x,y+1 x,y-1 then trap them (also implement to AVOID dying to this) (mid game3) 
+            - Implemented not trapping myself in a 2x2 radius of an enemy head 
     TODO: Start phase, when both snakes have to take the same spots try not to die
     
     
