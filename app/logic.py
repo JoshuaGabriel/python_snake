@@ -138,7 +138,7 @@ class GameBoard():
             
             visited.add(str(tile))
 
-            if(safety_protocol(tile)):
+            if(self.safety_protocol(tile,num)):
                 continue
 
             if tile_val == num:
