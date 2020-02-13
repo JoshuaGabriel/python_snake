@@ -69,7 +69,8 @@ class GameBoard():
             '''
             TODO: store each health into a dictionary (call the function called storage)
             '''
-            self.Storage(snake["id"],temporary_count)
+
+            GameBoard.Storage(snake["id"],temporary_count)
 
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
@@ -264,7 +265,7 @@ class GameBoard():
     # health = health of the snake , id = unique id of the snake 
     # dictionary will be in the form of {id:health}
     def Storage(self,id,health):
-        self.Storage_dict[id]=health
+        GameBoard.Storage_dict[id]=health
 
 
 
