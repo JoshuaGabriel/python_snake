@@ -108,6 +108,7 @@ class GameBoard():
                 print(self.board[y][x], end=' ')
 
             print()
+        print(GameBoard.DidIJustEat)
         print(self.Storage_dict)
 
     def bfs(self, start, num, status=True):
