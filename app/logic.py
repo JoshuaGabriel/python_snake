@@ -31,7 +31,7 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0
-
+    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
 
     def __init__(self, data=None):
         """Creates a new game board"""
@@ -151,11 +151,16 @@ class GameBoard():
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
+        valid_tiles = [0,3,6,7]
+        if(GameBoard.DidIJustEat()):
+            valid_tiles.remove(6)
+
+
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
             val = self.board[point.x][point.y] 
-            if (val == 0 or val == 3 or val == 7 or val == 6): #queue is only filled with 0,3,7 to start with
+            if val in valid_tiles: #queue is only filled with 0,3,7 to start with
                 queue.append(point)
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
