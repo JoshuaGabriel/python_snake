@@ -140,7 +140,7 @@ class GameBoard():
 
             tile_val = self.board[tile.x][tile.y]
 
-            if(isinstance(tile_val),list):
+            if(isinstance(tile_val,list)):
                 tile_val = tile_val[0]
 
             if str(tile) in visited:
@@ -263,7 +263,7 @@ class GameBoard():
     # Stores the health of an individual snake
     # health = health of the snake , id = unique id of the snake 
     # dictionary will be in the form of {id:health}
-    def Storage(self,health,id):
+    def Storage(self,id,health):
         self.Storage_dict[id]=health
 
 
