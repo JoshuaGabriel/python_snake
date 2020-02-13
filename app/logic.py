@@ -30,7 +30,7 @@ class GameBoard():
     7 - food
     """
     SnakeBodyCount  = 0 
-    MyBodyCount     = 0
+    MyBodyCount     = 0 
     DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
     Storage_dict    = {} # Stores the health of an individual snake
 
@@ -212,13 +212,14 @@ class GameBoard():
         if diff_y == 1:
             return 0
 
-    # returns false if the tile is dangerous (beside an opponent snake head)
-    # return true if the tile is safe
+
     '''
     TODO: need to say that it is safe to hit a head if I'm beside a snake with a lower health (not necessarily the biggest health)
     plan:
         implement other snake's ID or health to their head
     '''
+    # returns false if the tile is dangerous (beside an opponent snake head)
+    # return true if the tile is safe
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
@@ -237,12 +238,11 @@ class GameBoard():
         
         return True
 
-    # Returns True if the next tile is a trapped tile 
-    # A tile is considered to be trapped if there are no possible moves after
-
     '''
     TODO: need to check further squares AND if the tail is not in sight only then will it be a trapped square 
     '''
+    # Returns True if the next tile is a trapped tile 
+    # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
