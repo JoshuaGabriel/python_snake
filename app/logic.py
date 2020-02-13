@@ -134,7 +134,12 @@ class GameBoard():
             if str(tile) in visited:
                 continue
 
+            
+            
             visited.add(str(tile))
+
+            if(safety_protocol(tile)):
+                continue
 
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
