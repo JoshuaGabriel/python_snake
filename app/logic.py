@@ -140,7 +140,7 @@ class GameBoard():
                 return self.get_relative_direction(start, tile, pg)
 
             if tile_val == 0:
-                self.enqueue_around_point(tile, queue, visited, pg)
+                self.enqueue_around_point(tile, queue, visited, pg, num)
         
         return -1  #it didnt find what it was looking for 
 
@@ -154,11 +154,11 @@ class GameBoard():
             if (val == 0 or val == 3 or val == 7): #queue is only filled with 0,3,7 to start with
                 queue.append(point)
 
-    def enqueue_around_point(self, tile, queue, visted, parent_graph):
+    def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
-            if not (point in visted):
+            if (not (point in visted)) and GameBoard.safety_protocol(point,num):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
@@ -180,7 +180,25 @@ class GameBoard():
         if diff_y == 1:
             return 0
 
-    #need to implement a bfs search but doesn't pop the queue, instead it will go from the back of the list 
+    # returns false if the tile is dangerous (beside an opponent snake head)
+    # return true if the tile is safe
+    def safety_protocol(self,tile, num):
+        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
+
+        if(num==1): # if you are trying to kill then proceed to collide with head
+            return True
+
+        for point in points:
+            if(self.board[point.x][point.y]==1):
+                return False
+        
+        return True
+    
+    
+    
+    
+    
+    
     def turtle():
         pass
 
