@@ -154,7 +154,7 @@ class GameBoard():
             if (val == 0 or val == 3 or val == 7): #queue is only filled with 0,3,7 to start with
                 queue.append(point)
 
-    def enqueue_around_point(self, tile, queue, visted, parent_graph, num, data):
+    def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         
         safety_protocol = self.safety_protocol(tile,num)
@@ -202,6 +202,8 @@ class GameBoard():
         
         return True
     
+
+
     @staticmethod
     def AmIalpha():
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount):
