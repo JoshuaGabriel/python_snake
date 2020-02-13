@@ -96,8 +96,6 @@ def move():
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0, False) # go for empty spaces
 
-    if(move_data==-1):
-        assert False
     direction = directions[move_data]
     print("Direction: ", direction)
 
