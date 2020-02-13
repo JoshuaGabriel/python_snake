@@ -140,7 +140,7 @@ class GameBoard():
                 return self.get_relative_direction(start, tile, pg)
 
             if tile_val == 0:
-                self.enqueue_around_point(tile, queue, visited, pg, num)
+                self.enqueue_around_point(tile, queue, visited, pg, num, data)
         
         return -1  #it didnt find what it was looking for 
 
@@ -154,11 +154,13 @@ class GameBoard():
             if (val == 0 or val == 3 or val == 7): #queue is only filled with 0,3,7 to start with
                 queue.append(point)
 
-    def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
+    def enqueue_around_point(self, tile, queue, visted, parent_graph, num, data):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
+        
+        safety_protocol = self.safety_protocol(tile,num)
+        
         for point in points:
-            if (not (point in visted)) and self.safety_protocol(point,num):
+            if (not (point in visted) and safety_protocol):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
@@ -188,6 +190,9 @@ class GameBoard():
         if(num==1): # if you are trying to kill then proceed to collide with head
             return True
 
+        if(GameBoard.AmIAlpha()):
+            return True
+
         for point in points:
             try:
                 if(self.board[point.x][point.y]==1):
@@ -197,10 +202,11 @@ class GameBoard():
         
         return True
     
-    
-    
-    
-    
+    @staticmethod
+    def AmIalpha():
+        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount):
+            return True
+        return False 
     
     def turtle():
         pass
