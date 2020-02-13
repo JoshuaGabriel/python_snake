@@ -214,6 +214,13 @@ class GameBoard():
             return True
         return False 
     
+    # Will Trap a snake in a corner situation 
+    @staticmethod
+    def TrapKill():
+        pass
+
+
+    # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
     def turtle():
         pass
 
@@ -223,7 +230,32 @@ class GameBoard():
         move_data = -1
         print("CountMyBody: ", GameBoard.MyBodyCount)
         print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
-        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+2 and data["turn"]>50):
+        if(GameBoard.MyBodyCount>=GameBoard.SnakeBodyCount+2 and data["turn"]>50):
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
         return move_data
+
+
+
+
+
+
+
+'''
+
+Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e65162f92c7/
+                    https://play.battlesnake.com/g/8395aa92-1b17-4b8c-a742-ef8d76258d4b/
+                    https://play.battlesnake.com/g/a0bca1c3-9d6a-476b-b5d4-ec64d3736a99/#
+                    https://play.battlesnake.com/g/470299fc-9a04-4583-82fa-ebfc57714553/
+                    https://play.battlesnake.com/g/e115a725-e4d4-4873-9ac2-62e14da676ec/
+                    https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
+                    https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
+
+
+                    https://play.battlesnake.com/g/212df3fd-6a7b-4704-8a43-1f9a94eb1c02/
+                    
+                    kill_snake bug (dies of starvation)
+                    https://play.battlesnake.com/g/9a0e8a9c-8276-4311-b2e4-7c810a21b1ef/
+
+
+'''
