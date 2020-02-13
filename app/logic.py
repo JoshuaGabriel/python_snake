@@ -205,7 +205,7 @@ class GameBoard():
 
 
     @staticmethod
-    def AmIalpha():
+    def AmIAlpha():
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount):
             return True
         return False 
