@@ -77,13 +77,14 @@ def move():
     # last resort option
     #1 Priority
     '''
-    TODO: Not enter Trap phases (1 block beside a snake if im smaller)
-    
+    TODO: Not enter Trap phases (1 block beside a snake if im smaller) (DONE, kinda)
+    TODO: Overrides all commands, if the health is less than 16 then it must go get food
+
+
     #Essential Priority (survival)
     TODO: Kill strategy, their head on the edge and mine is x+1,y x-1,y x,y+1 x,y-1 then trap them (also implement to AVOID dying to this) (mid game3) 
             - Implemented not trapping myself in a 2x2 radius of an enemy head 
     TODO: Start phase, when both snakes have to take the same spots try not to die
-    
     
     #Bonus Priority
     TODO: If I'm the biggest snake by 2-3 foods then I'll kill (done) 
@@ -100,11 +101,6 @@ def move():
     print("Direction: ", direction)
 
     return move_response(direction)
-
-
-
-
-
 
 @bottle.post('/end')
 def end():

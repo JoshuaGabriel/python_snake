@@ -32,6 +32,7 @@ class GameBoard():
     SnakeBodyCount  = 0 
     MyBodyCount     = 0
     DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
+    Storage_dict    = {} # Stores the health of an individual snake
 
     def __init__(self, data=None):
         """Creates a new game board"""
@@ -53,6 +54,7 @@ class GameBoard():
         # go through all the snakes and add them to the board 
         GameBoard.SnakeBodyCount = 0
         temporary_count = 0
+        GameBoard.Storage_dict = {}
         for snake in data["board"]["snakes"]:
 
             if(snake["id"]==data["you"]["id"]):
@@ -63,6 +65,11 @@ class GameBoard():
                 self.board[bodypart["x"]][bodypart["y"]] = 2
 
                 temporary_count+=1
+
+            '''
+            TODO: store each health into a dictionary (call the function called storage)
+            '''
+            self.Storage(snake["id"],temporary_count)
 
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
@@ -100,6 +107,7 @@ class GameBoard():
                 print(self.board[y][x], end=' ')
 
             print()
+        print(self.Storage_dict)
 
     def bfs(self, start, num, status=True):
         """
@@ -132,6 +140,9 @@ class GameBoard():
 
             tile_val = self.board[tile.x][tile.y]
 
+            if(isinstance(tile_val),list):
+                tile_val = tile_val[0]
+
             if str(tile) in visited:
                 continue
 
@@ -163,8 +174,10 @@ class GameBoard():
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
-            val = self.board[point.x][point.y] 
-            if val in valid_tiles: #queue is only filled with 0,3,7 to start with
+            
+            tile_val = self.board[point.x][point.y] 
+
+            if tile_val in valid_tiles: #queue is only filled with 0,3,7 to start with
                 queue.append(point)
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
@@ -247,6 +260,14 @@ class GameBoard():
             return True
         return False 
     
+    # Stores the health of an individual snake
+    # health = health of the snake , id = unique id of the snake 
+    # dictionary will be in the form of {id:health}
+    def Storage(self,health,id):
+        GameBoard.Storage_dict[id]==health
+
+
+
     # Will Trap a snake in a corner situation 
     @staticmethod
     def TrapKill():
@@ -295,7 +316,7 @@ Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e651
 
                     trapped squares
                     https://play.battlesnake.com/g/1c2762c9-e322-49ac-9975-6510674ffd78/
-                    
+
 
 
 '''
