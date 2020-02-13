@@ -64,7 +64,7 @@ class GameBoard():
 
                 temporary_count+=1
 
-            if(GameBoard.SnakeBodyCount>temporary_count):
+            if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
 
             # add tail
@@ -82,7 +82,6 @@ class GameBoard():
         GameBoard.MyBodyCount = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            print(you)
             GameBoard.MyBodyCount+=1
 
         # get the head from the us
