@@ -89,10 +89,10 @@ class GameBoard():
             for y in range(0, self.width):
                 
                 if(self.board[y][x]==2 or self.board[y][x]==1 or self.board[y][x]==3):
-                    GameBoard.SnakeBodyCount += 1
+                    self.SnakeBodyCount += 1
                 
                 if(self.board[y][x]==4 or self.board[y][x]==5 or self.board[y][x]==6):
-                    GameBoard.MyBodyCount +=1
+                    self.MyBodyCount +=1
 
                 print(self.board[y][x], end=' ')
 
