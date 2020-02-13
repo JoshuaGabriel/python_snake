@@ -51,6 +51,7 @@ class GameBoard():
             self.board.append(column)
 
         # go through all the snakes and add them to the board 
+        GameBoard.SnakeBodyCount = 0
         temporary_count = 0
         for snake in data["board"]["snakes"]:
 
@@ -78,6 +79,7 @@ class GameBoard():
             self.board[food["x"]][food["y"]] = 7
 
         # go through self
+        GameBoard.MyBodyCount = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
             print(you)
