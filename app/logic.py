@@ -264,7 +264,7 @@ class GameBoard():
     # health = health of the snake , id = unique id of the snake 
     # dictionary will be in the form of {id:health}
     def Storage(self,health,id):
-        GameBoard.Storage_dict[id]==health
+        self.Storage_dict[id]=health
 
 
 
