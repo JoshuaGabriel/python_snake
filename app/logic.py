@@ -58,7 +58,7 @@ class GameBoard():
             for bodypart in snake["body"]:
                 print("snake['body']",snake["body"])
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-                temporary_max_count += 1
+                self.temporary_max_count += 1
             
             if(self.temporary_max_count>self.SnakeBodyCount):
                 self.SnakeBodyCount = self.temporary_max_count
