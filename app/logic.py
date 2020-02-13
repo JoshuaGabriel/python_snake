@@ -140,6 +140,9 @@ class GameBoard():
             if(not(self.safety_protocol(tile,num)) and status):
                 continue
 
+            if(not(self.trap_protocol(tile))):
+                continue
+
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
 
@@ -214,6 +217,19 @@ class GameBoard():
                 pass
         
         return True
+
+    #Returns True if it will go to a trapped square
+    def trap_protocol(self,tile):
+        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
+        
+
+        for point in points:
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
+                points.remove(point)
+            
+        if(len(points)==0):
+            return True
+        return False
 
 
     @staticmethod
