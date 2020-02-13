@@ -57,14 +57,10 @@ class GameBoard():
             if(snake["id"]==data["you"]["id"]):
                 continue
 
-            print("data['board']['snakes']",data["board"]["snakes"])
-            
             temporary_count = 0 
             for bodypart in snake["body"]:
-
-                print("snake['body']",bodypart)
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-                print("I'm in the loop")
+
                 temporary_count+=1
 
             if(GameBoard.SnakeBodyCount>temporary_count):
@@ -84,6 +80,7 @@ class GameBoard():
         # go through self
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
+            print(you)
             GameBoard.MyBodyCount+=1
 
         # get the head from the us
@@ -188,7 +185,7 @@ class GameBoard():
 
 
     #BROKEN
-    def kill_snakes(self,data,board):
+    def kill_snakes(self,data):
         move_data = -1
         print("CountMyBody: ", GameBoard.MyBodyCount)
         print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
