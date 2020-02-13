@@ -189,8 +189,11 @@ class GameBoard():
             return True
 
         for point in points:
-            if(self.board[point.x][point.y]==1):
-                return False
+            try:
+                if(self.board[point.x][point.y]==1):
+                    return False
+            except IndexError:
+                pass
         
         return True
     
