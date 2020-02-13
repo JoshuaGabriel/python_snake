@@ -63,7 +63,7 @@ def move():
 
     print("turn: ",data["turn"])
 
-    # move_data = board.kill_snakes(data)
+    move_data = board.kill_snakes(data,board)
     
     # returns -1 if he is trapped (no food)
     if(move_data!=-1):
@@ -73,11 +73,19 @@ def move():
         move_data = board.bfs(Point(data=head), 6) # go for your tail
 
     # last resort option
+    #1 Priority
     '''
-    TODO: Kill strategy, their head on the edge and mine is x+1,y x-1,y x,y+1 x,y-1 then trap them
+    TODO: Not enter Trap phases (1 block beside a snake if im smaller)
+    
+    #Essential Priority (survival)
+    TODO: Kill strategy, their head on the edge and mine is x+1,y x-1,y x,y+1 x,y-1 then trap them (also implement to AVOID dying to this) (mid game3)
+    TODO: Start phase, when both snakes have to take the same spots try not to die
+    
+    
+    #Bonus Priority
+    TODO: If I'm the biggest snake by 2-3 foods then I'll kill (done) 
+    TODO: If it is a 1vs1 scenario and I am smaller then I need to collect food 
     '''
-
-
 
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 0) # go for empty spaces
