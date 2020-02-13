@@ -78,7 +78,6 @@ class GameBoard():
 
         # go through self
         for you in data["you"]["body"]:
-            self.MyBodyCount+=1
             self.board[you["x"]][you["y"]] = 5
 
         # get the head from the us
