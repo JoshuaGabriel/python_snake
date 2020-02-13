@@ -101,10 +101,11 @@ class GameBoard():
 
             print()
 
-    def bfs(self, start, num):
+    def bfs(self, start, num, status=True):
         """
         Start is the point on the board we start looking from
         Num is the value (look at top) that we are looking for
+        Status is used to overide the safety protocol, this will default to True, unless specified
         """ 
 
         queue = []
@@ -134,11 +135,9 @@ class GameBoard():
             if str(tile) in visited:
                 continue
 
-            
-            
             visited.add(str(tile))
 
-            if(not(self.safety_protocol(tile,num))):
+            if(not(self.safety_protocol(tile,num)) and status):
                 continue
 
             if tile_val == num:
