@@ -43,10 +43,6 @@ class GameBoard():
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
 
-
-        GameBoard.DidIJustEat = False
-
-
         # init board
         for _ in range(0, self.width):
             column = []
@@ -159,6 +155,7 @@ class GameBoard():
         #safety measure to not enqueue the tail if I just ate a food
         if(GameBoard.DidIJustEat):
             valid_tiles.remove(6)
+            GameBoard.DidIJustEat = False  # set it back to false for next iterarion 
 
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
@@ -261,6 +258,8 @@ Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e651
                     https://play.battlesnake.com/g/e115a725-e4d4-4873-9ac2-62e14da676ec/
                     https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
                     https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
+                    https://play.battlesnake.com/g/e481ff16-799e-4545-8920-0befbaca2974/
+
 
 
                     https://play.battlesnake.com/g/212df3fd-6a7b-4704-8a43-1f9a94eb1c02/
