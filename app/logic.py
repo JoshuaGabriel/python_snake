@@ -150,11 +150,16 @@ class GameBoard():
 
             visited.add(str(tile))
 
+            if (GameBoard.DidIJustEat) and (tile_val == 6) :
+                GameBoard.DidIJustEat = False
+                continue
+
             if(not(self.safety_protocol(tile,num)) and status):
                 continue
 
             if(self.trap_protocol(tile)):
                 continue
+
 
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
@@ -168,18 +173,14 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         valid_tiles = [0,3,6,7]
-        #safety measure to not enqueue the tail if I just ate a food
-        if(GameBoard.DidIJustEat):
-            valid_tiles.remove(6)
-            GameBoard.DidIJustEat = False  # set it back to false for next iterarion 
-
+        
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
             
             tile_val = self.board[point.x][point.y] 
 
-            if tile_val in valid_tiles: #queue is only filled with 0,3,7 to start with
+            if tile_val in valid_tiles: #queue is only filled with 0,3,6,7 to start with
                 queue.append(point)
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
@@ -200,6 +201,7 @@ class GameBoard():
 
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
+        
         print(temp)
 
         diff_x = start.x - temp.x
