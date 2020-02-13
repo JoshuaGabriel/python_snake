@@ -57,14 +57,16 @@ def start():
 def move():
     data = bottle.request.json
     directions = ['up', 'down', 'left', 'right']
-    move_data = 0 
+    move_data = -1 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
     print("turn: ",data["turn"])
 
-    move_data = board.kill_snakes(data)
-    
+
+    if(move_data==-1):
+        move_data = board.kill_snakes(data)
+
     # returns -1 if he is trapped (no food)
     if(move_data==-1):
         move_data = board.bfs(Point(data=head), 7) # go for your Food
