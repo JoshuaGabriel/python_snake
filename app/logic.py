@@ -136,8 +136,8 @@ class GameBoard():
                 print("tile: ",str(tile)," ","queue[0]: ",queue[0])
             except IndexError:
                 print("tile: ",str(tile)," ","queue is empty")
+            
             tile_val = self.board[tile.x][tile.y]
-
             if(isinstance(tile_val,list)):
                 tile_val = tile_val[0]
 
@@ -145,6 +145,7 @@ class GameBoard():
                 continue
 
             visited.add(str(tile))
+
             print(str(tile)," starting tests")
             if (GameBoard.DidIJustEat) and (tile_val == 6):
                 GameBoard.DidIJustEat = False
@@ -158,6 +159,8 @@ class GameBoard():
                 continue
             print(str(tile)," trap protocol passed")
             
+
+            print(tile_val,"==",num)
             if tile_val == num:
                 print("tile_val==num")
                 return self.get_relative_direction(start, tile, pg)
@@ -179,7 +182,7 @@ class GameBoard():
             
             tile_val = self.board[point.x][point.y] 
             
-            if(isinstance(self.board[point.x][point.y],list)):
+            if(isinstance(tile_val,list)):
                 tile_val = tile_val[0]
 
             if tile_val in valid_tiles: #queue is only filled with 0,3,6,7 to start with
@@ -197,10 +200,8 @@ class GameBoard():
 
     def get_relative_direction(self, start, end, pg):
         temp = end
-
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
-
 
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
@@ -343,7 +344,5 @@ Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e651
 
                     trapped squares
                     https://play.battlesnake.com/g/1c2762c9-e322-49ac-9975-6510674ffd78/
-
-
 
 '''
