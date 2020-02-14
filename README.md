@@ -48,6 +48,10 @@ Should have gone for the green tail
 https://play.battlesnake.com/g/c00d8640-432a-41a4-a4c2-5ed594af1967/#
 
 
+Hitting enenmy head
+https://play.battlesnake.com/g/167004f6-403d-4c2e-ac05-03e83a8a5a9d/#
+
+
 
 
 

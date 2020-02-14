@@ -1,6 +1,3 @@
-
-
-
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -225,8 +222,6 @@ class GameBoard():
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-
-        
         if(num==1): # if you are trying to kill then proceed to collide with head
             return True
 
@@ -234,11 +229,13 @@ class GameBoard():
             return True
 
         for point in points:
-            try:
-                if(self.board[point.x][point.y]==1):
-                    return False
-            except IndexError:
+
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
+            print(point)
+            if(self.board[point.x][point.y]==1):
+                return False
+
         print("safety_protocol initiated!")
         return True
 
