@@ -242,8 +242,10 @@ class GameBoard():
             tile_val = self.board[point.x][point.y]
             if(isinstance(tile_val,list)):
                 tile_val = tile_val[0]
-            print(self.board[point.x][point.y])
-            if(self.board[point.x][point.y]==1):
+            
+            print(tile_val)
+            
+            if(tile_val==1):
                 print("safety_protocol returned false")
                 return False
 
