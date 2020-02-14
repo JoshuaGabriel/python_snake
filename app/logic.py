@@ -251,7 +251,7 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5 or self.board[point.x][point.y]==1:
                 points.remove(point)
 
         if(len(points)==0):
