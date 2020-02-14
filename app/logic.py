@@ -138,7 +138,8 @@ class GameBoard():
             # print("tile: ", end='')
             try:
                 print("tile: ",str(tile)," ","queue[0]: ",queue[0])
-
+            except IndexError:
+                print("tile: ",str(tile)," ","queue is empty")
             tile_val = self.board[tile.x][tile.y]
 
             if(isinstance(tile_val,list)):
