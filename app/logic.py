@@ -136,7 +136,8 @@ class GameBoard():
 
             # print("queue:", queue)
             # print("tile: ", end='')
-            print("tile: ",str(tile)," ","queue[0]: ",queue[0])
+            try:
+                print("tile: ",str(tile)," ","queue[0]: ",queue[0])
 
             tile_val = self.board[tile.x][tile.y]
 
