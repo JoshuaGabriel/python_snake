@@ -31,7 +31,7 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0 
-    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
+    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
     Storage_dict    = {} # Stores the health of an individual snake
 
     def __init__(self, data=None):
@@ -69,8 +69,7 @@ class GameBoard():
             '''
             TODO: store each health into a dictionary (call the function called storage)
             '''
-
-            GameBoard.Storage(snake["id"],temporary_count)
+            GameBoard.Storage(snake["id"],temporary_count) # Stores each opponent snakes 
 
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
@@ -80,7 +79,7 @@ class GameBoard():
             self.board[tail["x"]][tail["y"]] = 3
             # add head
             head = snake["body"][0]
-            self.board[head["x"]][head["y"]] = 1
+            self.board[head["x"]][head["y"]] = [1,data["board"]["snakes"]["id"]]
         
         # go through the food and add it to the board
         for food in data["board"]["food"]:
