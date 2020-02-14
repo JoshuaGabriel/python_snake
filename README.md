@@ -1,3 +1,45 @@
+# Patch Notes 
+
+### Beta 1.00
+
+#### Class Attributes
+
+SnakeBodyCount and MyBodyCount - keep track of how large my snake and the opponent snake(largest snake).
+
+DidIJustEat - keeps track wheter or not my snake has eaten. (purpose: inorder not to collide with my tail once I have eaten a food). 
+
+Storage_dict - A dictionary of all enemny snakes in the form of {id:size} to keep track of all snake sizes (how many food eaten).
+
+#### New Functions
+
+safety_protocol
+
+trap_protocol
+
+AmIAlpha
+
+Storage
+
+kill_snakes
+
+
+#### Fixes
+
+bfs - now returns -1 if queue becomes empty (exists the loop)
+
+
+#### Replay Bugs
+
+
+I wanted skippy to go down and not the food, not sure why safety_protocol was not working
+https://play.battlesnake.com/g/6703ff00-9268-4c71-803f-febaed464385/#
+
+
+
+
+#### End of Patch Notes
+
+
 # starter-snake-python
 
 A simple [Battlesnake AI](http://battlesnake.io) written in Python. 

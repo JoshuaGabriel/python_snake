@@ -135,8 +135,8 @@ class GameBoard():
                 continue
 
 
-            print("queue:", queue)
-            print("tile: ", end='')
+            # print("queue:", queue)
+            # print("tile: ", end='')
             print(str(tile))
 
             tile_val = self.board[tile.x][tile.y]
@@ -158,7 +158,6 @@ class GameBoard():
 
             if(self.trap_protocol(tile)):
                 continue
-
 
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
@@ -198,11 +197,10 @@ class GameBoard():
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
 
+
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
-        
-        print(temp)
-
+    
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
@@ -226,6 +224,8 @@ class GameBoard():
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
+
+        print("safety_protocol initiated!")
         if(num==1): # if you are trying to kill then proceed to collide with head
             return True
 
@@ -237,7 +237,7 @@ class GameBoard():
                 if(self.board[point.x][point.y]==1):
                     return False
             except IndexError:
-                pass
+                continue
         
         return True
 
@@ -252,7 +252,9 @@ class GameBoard():
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
                 points.remove(point)
-            
+
+        print("trap_protocol intitiated!")
+
         if(len(points)==0):
             return True
         return False
