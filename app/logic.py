@@ -249,7 +249,7 @@ class GameBoard():
             
             print(tile_val)
             
-            if(tile_val==1):
+            if(tile_val==1): #it is broken here
                 print("safety_protocol returned false")
                 return False
 
@@ -317,7 +317,7 @@ class GameBoard():
         print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50):
             head = data["you"]["body"][0]
-            move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
+            move_data = GameBoard.bfs(self,Point(data=head), 1, False) # go for kill 
         return move_data
 
 
