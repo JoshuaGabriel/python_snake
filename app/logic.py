@@ -178,6 +178,9 @@ class GameBoard():
                 continue # if it is out of bounds, the iteration is skipped
             
             tile_val = self.board[point.x][point.y] 
+            
+            if(isinstance(self.board[point.x][point.y],list)):
+                tile_val = tile_val[0]
 
             if tile_val in valid_tiles: #queue is only filled with 0,3,6,7 to start with
                 queue.append(point)
@@ -231,9 +234,13 @@ class GameBoard():
             return True
         
         for point in points:
+
+
             print("safety protocol checking point: ",point)
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
+            if(isinstance(self.board[point.x][point.y],list)):
+                tile_val = tile_val[0]
             print(self.board[point.x][point.y])
             if(self.board[point.x][point.y]==1):
                 print("safety_protocol returned false")
@@ -251,6 +258,8 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
+            if(isinstance(self.board[point.x][point.y],list)):
+                tile_val = tile_val[0]
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5 or self.board[point.x][point.y]==1:
                 points.remove(point)
 
