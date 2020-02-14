@@ -234,7 +234,7 @@ class GameBoard():
             print("safety protocol checking point: ",point)
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
-            
+            print(self.board[point.x][point.y])
             if(self.board[point.x][point.y]==1):
                 print("safety_protocol returned false")
                 return False
@@ -257,6 +257,7 @@ class GameBoard():
         if(len(points)==0):
             print("trap_protocol returned true")
             return True
+        
         print("trap_protocol returned false")
         return False
 
