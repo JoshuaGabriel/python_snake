@@ -210,7 +210,10 @@ class GameBoard():
         print(temp)
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
-        print(start)
+        print(start.x," ",start.y)
+        print(temp.x," ",temp.y)
+
+
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
