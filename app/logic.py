@@ -108,7 +108,6 @@ class GameBoard():
 
             print()
         print(GameBoard.DidIJustEat)
-        print(self.Storage_dict)
 
     def bfs(self, start, num, status=True):
         """
@@ -137,7 +136,7 @@ class GameBoard():
 
             # print("queue:", queue)
             # print("tile: ", end='')
-            print(str(tile))
+            print("tile: ",str(tile)," ","queue[0]: ",queue[0])
 
             tile_val = self.board[tile.x][tile.y]
 
@@ -225,7 +224,7 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
 
-        print("safety_protocol initiated!")
+        
         if(num==1): # if you are trying to kill then proceed to collide with head
             return True
 
@@ -238,7 +237,7 @@ class GameBoard():
                     return False
             except IndexError:
                 continue
-        
+        print("safety_protocol initiated!")
         return True
 
     '''
@@ -253,9 +252,10 @@ class GameBoard():
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
                 points.remove(point)
 
-        print("trap_protocol intitiated!")
+
 
         if(len(points)==0):
+            print("trap_protocol intitiated!")
             return True
         return False
 
