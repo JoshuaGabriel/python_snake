@@ -227,14 +227,12 @@ class GameBoard():
         
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-        if(num==1): # if you are trying to kill then proceed to collide with head
-            print("safety_protocol returned true")
-            return True
+
 
         if(GameBoard.AmIAlpha()):
             print("safety_protocol returned true")
             return True
-
+        
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
