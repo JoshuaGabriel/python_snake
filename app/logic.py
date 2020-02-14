@@ -163,7 +163,9 @@ class GameBoard():
             print(tile_val,"==",num)
             if tile_val == num:
                 print("tile_val==num")
-                return self.get_relative_direction(start, tile, pg)
+                value = self.get_relative_direction(start, tile, pg)
+                print(value)
+                return value
             
             print("Im going to keep looking!")
             if tile_val == 0:
