@@ -239,7 +239,8 @@ class GameBoard():
             print("safety protocol checking point: ",point)
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
-            if(isinstance(self.board[point.x][point.y],list)):
+            tile_val = self.board[point.x][point.y]
+            if(isinstance(tile_val,list)):
                 tile_val = tile_val[0]
             print(self.board[point.x][point.y])
             if(self.board[point.x][point.y]==1):
@@ -265,7 +266,6 @@ class GameBoard():
             tile_val = self.board[point.x][point.y]
             if(isinstance(tile_val,list)):
                 tile_val = tile_val[0]
-            
             
             if(tile_val == 5 or tile_val ==1):
                 points.remove(point)
