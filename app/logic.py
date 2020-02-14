@@ -130,7 +130,6 @@ class GameBoard():
             if tile.x >= self.width or tile.x < 0 or tile.y >= self.height or tile.y < 0:
                 continue
 
-
             # print("queue:", queue)
             # print("tile: ", end='')
             try:
@@ -146,20 +145,23 @@ class GameBoard():
                 continue
 
             visited.add(str(tile))
-
+            print("starting tests")
             if (GameBoard.DidIJustEat) and (tile_val == 6) :
                 GameBoard.DidIJustEat = False
                 continue
+            print("DidIJustEat passed")
 
             if(not(self.safety_protocol(tile,num)) and status):
                 continue
-
+            print("safety protocol passed")
             if(self.trap_protocol(tile)):
                 continue
-
+            print("trap protocol passed")
+            
             if tile_val == num:
+                print("tile_val==num")
                 return self.get_relative_direction(start, tile, pg)
-
+            print("Im going to keep looking!")
             if tile_val == 0:
                 self.enqueue_around_point(tile, queue, visited, pg, num)
         
@@ -220,23 +222,28 @@ class GameBoard():
     # returns false if the tile is dangerous (beside an opponent snake head)
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
+        
+        
+        
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         if(num==1): # if you are trying to kill then proceed to collide with head
+            print("safety_protocol returned true")
             return True
 
         if(GameBoard.AmIAlpha()):
+            print("safety_protocol returned true")
             return True
 
         for point in points:
-
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
-            print(point)
+
             if(self.board[point.x][point.y]==1):
+                print("safety_protocol returned false")
                 return False
 
-        print("safety_protocol initiated!")
+        print("safety_protocol returned true")
         return True
 
     '''
@@ -251,11 +258,10 @@ class GameBoard():
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
                 points.remove(point)
 
-
-
         if(len(points)==0):
-            print("trap_protocol intitiated!")
+            print("trap_protocol returned true")
             return True
+        print("trap_protocol returned false")
         return False
 
 
