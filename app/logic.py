@@ -79,7 +79,9 @@ class GameBoard():
             self.board[tail["x"]][tail["y"]] = 3
             # add head
             head = snake["body"][0]
-            self.board[head["x"]][head["y"]] = [1,data["board"]["snakes"]["id"]]
+            snake_id = data["board"]["snakes"]["id"]
+            
+            self.board[head["x"]][head["y"]] = [1, snake_id]
         
         # go through the food and add it to the board
         for food in data["board"]["food"]:
