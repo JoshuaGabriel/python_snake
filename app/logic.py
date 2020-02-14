@@ -132,10 +132,10 @@ class GameBoard():
 
             # print("queue:", queue)
             # print("tile: ", end='')
-            try:
-                print("tile: ",str(tile)," ","queue[0]: ",queue[0])
-            except IndexError:
-                print("tile: ",str(tile)," ","queue is empty")
+            # try:
+            #     print("tile: ",str(tile)," ","queue[0]: ",queue[0])
+            # except IndexError:
+            #     print("tile: ",str(tile)," ","queue is empty")
             
             tile_val = self.board[tile.x][tile.y]
             if(isinstance(tile_val,list)):
@@ -146,18 +146,18 @@ class GameBoard():
 
             visited.add(str(tile))
 
-            print(str(tile)," starting tests")
+            # print(str(tile)," starting tests")
             if (GameBoard.DidIJustEat) and (tile_val == 6):
                 GameBoard.DidIJustEat = False
                 continue
-            print(str(tile)," DidIJustEat passed")
+            # print(str(tile)," DidIJustEat passed")
 
             if((not(self.safety_protocol(tile,num))) and status):
                 continue
-            print(str(tile)," safety protocol passed")
+            # print(str(tile)," safety protocol passed")
             if(self.trap_protocol(tile)):
                 continue
-            print(str(tile)," trap protocol passed")
+            # print(str(tile)," trap protocol passed")
             
 
             print(tile_val,"==",num)
@@ -199,13 +199,16 @@ class GameBoard():
                 parent_graph[point] = tile  # The points point to the tile
 
     def get_relative_direction(self, start, end, pg):
+        print("im in the relative func")
         temp = end
+        print(temp)
+        print(end)
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
-
+        print(temp)
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
-    
+        print(start)
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
