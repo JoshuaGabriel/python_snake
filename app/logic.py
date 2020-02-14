@@ -173,7 +173,7 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         valid_tiles = [0,3,6,7]
-        
+
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
@@ -268,8 +268,9 @@ class GameBoard():
     # Stores the health of an individual snake
     # health = health of the snake , id = unique id of the snake 
     # dictionary will be in the form of {id:health}
-    def Storage(self,id,health):
-        GameBoard.Storage_dict[id]=health
+    @staticmethod
+    def Storage(id_string,health):
+        GameBoard.Storage_dict[id_string]=health
 
 
 
