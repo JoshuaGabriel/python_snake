@@ -145,22 +145,23 @@ class GameBoard():
                 continue
 
             visited.add(str(tile))
-            print("starting tests")
-            if (GameBoard.DidIJustEat) and (tile_val == 6) :
+            print(str(tile)," starting tests")
+            if (GameBoard.DidIJustEat) and (tile_val == 6):
                 GameBoard.DidIJustEat = False
                 continue
-            print("DidIJustEat passed")
+            print(str(tile)," DidIJustEat passed")
 
-            if(not(self.safety_protocol(tile,num)) and status):
+            if((not(self.safety_protocol(tile,num))) and status):
                 continue
-            print("safety protocol passed")
+            print(str(tile)," safety protocol passed")
             if(self.trap_protocol(tile)):
                 continue
-            print("trap protocol passed")
+            print(str(tile)," trap protocol passed")
             
             if tile_val == num:
                 print("tile_val==num")
                 return self.get_relative_direction(start, tile, pg)
+            
             print("Im going to keep looking!")
             if tile_val == 0:
                 self.enqueue_around_point(tile, queue, visited, pg, num)
@@ -223,25 +224,22 @@ class GameBoard():
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
         
-        
-        
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-
-
         if(GameBoard.AmIAlpha()):
-            print("safety_protocol returned true")
+            print("safety_protocol returned true via alpha")
             return True
         
         for point in points:
+            print("safety protocol checking point: ",point)
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
-
+            
             if(self.board[point.x][point.y]==1):
                 print("safety_protocol returned false")
                 return False
 
-        print("safety_protocol returned true")
+        print("safety_protocol returned true via completion")
         return True
 
     '''
