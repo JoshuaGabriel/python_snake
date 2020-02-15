@@ -1,3 +1,4 @@
+
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -312,4 +313,5 @@ Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e651
                     https://play.battlesnake.com/g/9a0e8a9c-8276-4311-b2e4-7c810a21b1ef/
                     trapped squares
                     https://play.battlesnake.com/g/1c2762c9-e322-49ac-9975-6510674ffd78/
+                    ye
 '''
