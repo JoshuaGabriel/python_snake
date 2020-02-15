@@ -1,3 +1,4 @@
+
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -28,7 +29,7 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0 
-    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
+    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
     Storage_dict    = {} # Stores the health of an individual snake
 
     def __init__(self, data=None):
@@ -66,7 +67,8 @@ class GameBoard():
             '''
             TODO: store each health into a dictionary (call the function called storage)
             '''
-            GameBoard.Storage(snake["id"],temporary_count) # Stores each opponent snakes 
+
+
 
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
@@ -76,7 +78,7 @@ class GameBoard():
             self.board[tail["x"]][tail["y"]] = 3
             # add head
             head = snake["body"][0]
-            self.board[head["x"]][head["y"]] = [1, snake["id"]]
+            self.board[head["x"]][head["y"]] = 1
         
         # go through the food and add it to the board
         for food in data["board"]["food"]:
@@ -105,6 +107,7 @@ class GameBoard():
 
             print()
         print(GameBoard.DidIJustEat)
+        print(self.Storage_dict)
 
     def bfs(self, start, num, status=True):
         """
@@ -130,12 +133,11 @@ class GameBoard():
             if tile.x >= self.width or tile.x < 0 or tile.y >= self.height or tile.y < 0:
                 continue
 
-            # print("queue:", queue)
-            # print("tile: ", end='')
-            try:
-                print("tile: ",str(tile)," ","queue[0]: ",queue[0])
-            except IndexError:
-                print("tile: ",str(tile)," ","queue is empty")
+
+            print("queue:", queue)
+            print("tile: ", end='')
+            print(str(tile))
+
             tile_val = self.board[tile.x][tile.y]
 
             if(isinstance(tile_val,list)):
@@ -145,24 +147,20 @@ class GameBoard():
                 continue
 
             visited.add(str(tile))
-            print(str(tile)," starting tests")
-            if (GameBoard.DidIJustEat) and (tile_val == 6):
+
+            if (GameBoard.DidIJustEat) and (tile_val == 6) :
                 GameBoard.DidIJustEat = False
                 continue
-            print(str(tile)," DidIJustEat passed")
 
-            if((not(self.safety_protocol(tile,num))) and status):
+            if(not(self.safety_protocol(tile,num)) and status):
                 continue
-            print(str(tile)," safety protocol passed")
+
             if(self.trap_protocol(tile)):
                 continue
-            print(str(tile)," trap protocol passed")
-            
+
             if tile_val == num:
-                print("tile_val==num")
                 return self.get_relative_direction(start, tile, pg)
-            
-            print("Im going to keep looking!")
+
             if tile_val == 0:
                 self.enqueue_around_point(tile, queue, visited, pg, num)
         
@@ -178,9 +176,6 @@ class GameBoard():
                 continue # if it is out of bounds, the iteration is skipped
             
             tile_val = self.board[point.x][point.y] 
-            
-            if(isinstance(self.board[point.x][point.y],list)):
-                tile_val = tile_val[0]
 
             if tile_val in valid_tiles: #queue is only filled with 0,3,6,7 to start with
                 queue.append(point)
@@ -201,10 +196,11 @@ class GameBoard():
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
 
-
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
-    
+        
+        print(temp)
+
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
@@ -226,30 +222,21 @@ class GameBoard():
     # returns false if the tile is dangerous (beside an opponent snake head)
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
-        
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-        if(GameBoard.AmIAlpha()):
-            print("safety_protocol returned true via alpha")
+        if(num==1): # if you are trying to kill then proceed to collide with head
             return True
-        
+
+        if(GameBoard.AmIAlpha()):
+            return True
+
         for point in points:
-
-
-            print("safety protocol checking point: ",point)
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
-                continue
-            tile_val = self.board[point.x][point.y]
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
-            
-            print(tile_val)
-            
-            if(tile_val==1):
-                print("safety_protocol returned false")
-                return False
-
-        print("safety_protocol returned true via completion")
+            try:
+                if(self.board[point.x][point.y]==1):
+                    return False
+            except IndexError:
+                pass
+        
         return True
 
     '''
@@ -261,22 +248,11 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
                 points.remove(point)
-                continue
             
-            tile_val = self.board[point.x][point.y]
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
-            
-            if(tile_val == 5 or tile_val ==1):
-                points.remove(point)
-
         if(len(points)==0):
-            print("trap_protocol returned true")
             return True
-        
-        print("trap_protocol returned false")
         return False
 
 
@@ -323,7 +299,6 @@ class GameBoard():
 
 
 '''
-
 Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e65162f92c7/
                     https://play.battlesnake.com/g/8395aa92-1b17-4b8c-a742-ef8d76258d4b/
                     https://play.battlesnake.com/g/a0bca1c3-9d6a-476b-b5d4-ec64d3736a99/#
@@ -332,18 +307,11 @@ Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e651
                     https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
                     https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
                     https://play.battlesnake.com/g/e481ff16-799e-4545-8920-0befbaca2974/
-
-
-
                     https://play.battlesnake.com/g/212df3fd-6a7b-4704-8a43-1f9a94eb1c02/
                     
                     kill_snake bug (dies of starvation)
                     https://play.battlesnake.com/g/9a0e8a9c-8276-4311-b2e4-7c810a21b1ef/
-
-
                     trapped squares
                     https://play.battlesnake.com/g/1c2762c9-e322-49ac-9975-6510674ffd78/
-
-
-
+                    ye
 '''
