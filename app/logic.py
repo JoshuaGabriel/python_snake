@@ -73,7 +73,7 @@ class GameBoard():
     def printBoard(self):
         for x in range(0, self.height):
             for y in range(0, self.width):
-                print(self.board[y][x], end='')
+                print(self.board[y][x], end=' ')
             print()
 
     def bfs(self, start, num):

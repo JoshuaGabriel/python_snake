@@ -88,9 +88,6 @@ def move():
 
     direction = directions[move_data]
 
-    # when health < 50 go for food
-    direction = directions[board.bfs(Point(data=head), 7)]
-
     print("Direction: ", direction)
 
     return move_response(direction)
