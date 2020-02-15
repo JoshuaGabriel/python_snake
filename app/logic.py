@@ -29,7 +29,12 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0 
-    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
+    MyPreviousTile  = -1 # Stores the value of the previous tile Skippy has been on
+    
+    DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
+    print("Making class attributes")
+    
+    
     Storage_dict    = {} # Stores the health of an individual snake
 
     def __init__(self, data=None):
@@ -224,9 +229,6 @@ class GameBoard():
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-        if(num==1): # if you are trying to kill then proceed to collide with head
-            return True
-
         if(GameBoard.AmIAlpha()):
             return True
 
@@ -246,14 +248,18 @@ class GameBoard():
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
+        print("points before: ",points)
         invalid_squares = [2,4,5]
         for point in points:
+            print("points!")
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
                 points.remove(point)
-            
+
+        print("points after: ",points)    
         if(len(points)==0):
+            print("trap returned true omg")
             return True
+        
         return False
 
 
