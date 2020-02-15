@@ -64,9 +64,9 @@ def move():
     print("turn: ",data["turn"])
 
 
-    # if(move_data==-1):
-    #     print("trying kill")
-    #     move_data = board.kill_snakes(data)
+    if(move_data==-1):
+        print("trying kill")
+        move_data = board.kill_snakes(data)
 
     # returns -1 if he is trapped (no food)
     if(move_data==-1):
@@ -84,7 +84,7 @@ def move():
     
     if(move_data==-1):
         print("trying empty space")
-        move_data = board.bfs(Point(data=head), 0) # go for empty spaces
+        move_data = board.bfs(Point(data=head), 0,False) # go for empty spaces
 
     direction = directions[move_data]
 
