@@ -84,7 +84,7 @@ def move():
     
     if(move_data==-1):
         print("trying empty space")
-        move_data = board.bfs(Point(data=head), 0, False) # go for empty spaces
+        move_data = board.bfs(Point(data=head), 0) # go for empty spaces
 
     direction = directions[move_data]
 
