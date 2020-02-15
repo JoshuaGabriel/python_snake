@@ -142,24 +142,23 @@ class GameBoard():
 
             tile_val = self.board[tile.x][tile.y]
 
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
-
             if str(tile) in visited:
                 continue
 
             visited.add(str(tile))
 
-            if (GameBoard.DidIJustEat) and (tile_val == 6) :
-                GameBoard.DidIJustEat = False
-                continue
+            '''
+            TODO: Fix DidIJustEat Function!
+            '''
+            # if (GameBoard.DidIJustEat) and (tile_val == 6) :
+            #     GameBoard.DidIJustEat = False
+            #     continue
 
-            if(not(self.safety_protocol(tile,num)) and status):
+            if(status and not(self.safety_protocol(tile,num))):
                 continue
 
             if(self.trap_protocol(tile)):
                 continue
-
 
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
@@ -199,8 +198,8 @@ class GameBoard():
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
 
-        if(self.board[temp.x][temp.y]==7):
-            GameBoard.DidIJustEat = True
+        # if(self.board[temp.x][temp.y]==7):
+        #     GameBoard.DidIJustEat = True
         
         print(temp)
 
@@ -226,9 +225,6 @@ class GameBoard():
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
-        if(num==1): # if you are trying to kill then proceed to collide with head
-            return True
 
         if(GameBoard.AmIAlpha()):
             return True
