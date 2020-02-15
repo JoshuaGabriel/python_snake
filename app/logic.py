@@ -114,7 +114,7 @@ class GameBoard():
         print(GameBoard.DidIJustEat)
         print(self.Storage_dict)
 
-    def bfs(self, start, num, status=True):
+    def bfs(self, start, num, status_safety=True,status_trap=True):
         """
         Start is the point on the board we start looking from
         Num is the value (look at top) that we are looking for
@@ -157,10 +157,10 @@ class GameBoard():
                 GameBoard.DidIJustEat = False
                 continue
 
-            if(not(self.safety_protocol(tile,num)) and status):
+            if(not(self.safety_protocol(tile,num)) and status_safety):
                 continue
 
-            if(self.trap_protocol(tile)):
+            if(self.trap_protocol(tile) and status_trap):
                 continue
 
             if tile_val == num:
