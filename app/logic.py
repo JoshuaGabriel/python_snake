@@ -112,7 +112,7 @@ class GameBoard():
 
             if tile_val == 0:
                 self.enqueue_around_point(tile, queue, visited, pg)
-
+        return -1
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
