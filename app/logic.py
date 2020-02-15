@@ -248,18 +248,17 @@ class GameBoard():
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-        
         print("points before: ",points)
         invalid_squares = [2,4,5]
         
-        
-        for num in range(4):
-            print("point!",points[num])
-            if points[num].x >= self.width or points[num].x < 0 or points[num].y >= self.height or points[num].y < 0 or (self.board[points[num].x][points[num].y] in invalid_squares):
-                points.remove(points[num])
+        count = 0
+        for point in points:
+            print("points: ", point)
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
+                count+=1
 
         print("points after: ",points)    
-        if(len(points)==0):
+        if(count==4):
             print("trap returned true omg")
             return True
         
