@@ -176,8 +176,6 @@ class GameBoard():
         valid_tiles = [0,3,6,7]
 
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
-                continue # if it is out of bounds, the iteration is skipped
             
             tile_val = self.board[point.x][point.y] 
             
