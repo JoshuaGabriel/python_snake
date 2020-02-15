@@ -1,5 +1,3 @@
-
-
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -11,9 +9,6 @@ class Point:
             self.y = y
 
     def __str__(self):
-        return "x: " + str(self.x) + " y: " + str(self.y)
-
-    def __repr__(self):
         return "x: " + str(self.x) + " y: " + str(self.y)
 
 
@@ -28,9 +23,6 @@ class GameBoard():
     6 - You tail
     7 - food
     """
-    SnakeBodyCount  = 0 
-    MyBodyCount     = 0
-    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing)
 
     def __init__(self, data=None):
         """Creates a new game board"""
@@ -49,39 +41,24 @@ class GameBoard():
                 column.append(0)
             self.board.append(column)
 
-        # go through all the snakes and add them to the board 
-        GameBoard.SnakeBodyCount = 0
-        temporary_count = 0
+        # go through all the snakes and add them to the board
         for snake in data["board"]["snakes"]:
-
-            if(snake["id"]==data["you"]["id"]):
-                continue
-
-            temporary_count = 0 
             for bodypart in snake["body"]:
                 self.board[bodypart["x"]][bodypart["y"]] = 2
-
-                temporary_count+=1
-
-            if(temporary_count>GameBoard.SnakeBodyCount):
-                GameBoard.SnakeBodyCount = temporary_count
-
             # add tail
             tail = snake["body"][-1]
             self.board[tail["x"]][tail["y"]] = 3
             # add head
             head = snake["body"][0]
             self.board[head["x"]][head["y"]] = 1
-        
+
         # go through the food and add it to the board
         for food in data["board"]["food"]:
             self.board[food["x"]][food["y"]] = 7
 
         # go through self
-        GameBoard.MyBodyCount = 0
         for you in data["you"]["body"]:
             self.board[you["x"]][you["y"]] = 5
-            GameBoard.MyBodyCount+=1
 
         # get the head from the us
         you_tail = data["you"]["body"][-1]
@@ -96,36 +73,30 @@ class GameBoard():
     def printBoard(self):
         for x in range(0, self.height):
             for y in range(0, self.width):
-                print(self.board[y][x], end=' ')
-
+                print(self.board[y][x], end='')
             print()
 
-    def bfs(self, start, num, status=True):
+    def bfs(self, start, num):
         """
         Start is the point on the board we start looking from
         Num is the value (look at top) that we are looking for
-        Status is used to overide the safety protocol, this will default to True, unless specified
-        """ 
-
+        """
         queue = []
         visited = set()
-        pg = {} # parent graph
-        """
-        The parent graph (point:tile) points to the direction where it was generated
-        """
+        pg = {}
+
         # add the tiles around the head
         self.enqueue_around_head(start, queue)
 
         # While we are still in the queue
         while len(queue) != 0:
-            # print("Visited: ", visited)
+            print("Visited: ", visited)
 
             tile = queue.pop(0)
             if tile.x >= self.width or tile.x < 0 or tile.y >= self.height or tile.y < 0:
                 continue
 
 
-            print("queue:", queue)
             print("tile: ", end='')
             print(str(tile))
 
@@ -136,55 +107,35 @@ class GameBoard():
 
             visited.add(str(tile))
 
-            if(not(self.safety_protocol(tile,num)) and status):
-                continue
-
-            if(self.trap_protocol(tile)):
-                continue
-
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
 
             if tile_val == 0:
-                self.enqueue_around_point(tile, queue, visited, pg, num)
-        
-        return -1  #it didnt find what it was looking for 
+                self.enqueue_around_point(tile, queue, visited, pg)
 
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-        valid_tiles = [0,3,6,7]
-        #safety measure to not enqueue the tail if I just ate a food
-        if(GameBoard.DidIJustEat):
-            valid_tiles.remove(6)
-            GameBoard.DidIJustEat = False  # set it back to false for next iterarion 
-
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
-                continue # if it is out of bounds, the iteration is skipped
-            val = self.board[point.x][point.y] 
-            if val in valid_tiles: #queue is only filled with 0,3,7 to start with
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
+                continue
+            val = self.board[point.x][point.y]
+            if (val == 0 or val == 3 or val == 7 or val == 6):
                 queue.append(point)
 
-    def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
+    def enqueue_around_point(self, tile, queue, visted, parent_graph):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-        
-        safety_protocol = self.safety_protocol(tile,num)
-        
+
         for point in points:
-            if (not (point in visted) and safety_protocol):
+            if not (point in visted):
                 queue.append(point)
-                parent_graph[point] = tile  # The points point to the tile
+                parent_graph[point] = tile
 
     def get_relative_direction(self, start, end, pg):
         temp = end
-
-        while temp in pg: # gets where the end point was generated from 
+        while temp in pg:
             temp = pg[temp]
 
-        if(self.board[temp.x][temp.y]==7):
-            GameBoard.DidIJustEat = True
-        
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
 
@@ -196,82 +147,3 @@ class GameBoard():
             return 1
         if diff_y == 1:
             return 0
-
-    # returns false if the tile is dangerous (beside an opponent snake head)
-    # return true if the tile is safe
-    def safety_protocol(self,tile, num):
-        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
-        if(GameBoard.AmIAlpha()):
-            return True
-
-        for point in points:
-            try:
-                if(self.board[point.x][point.y]==1):
-                    return False
-            except IndexError:
-                pass
-        
-        return True
-
-    # Returns True if the next tile is a trapped tile 
-    # A tile is considered to be trapped if there are no possible moves after
-    def trap_protocol(self,tile):
-        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
-        for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
-                points.remove(point)
-            
-        if(len(points)==0):
-            return True
-        return False
-
-
-    @staticmethod
-    def AmIAlpha():
-        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount):
-            return True
-        return False 
-    
-    # Will Trap a snake in a corner situation 
-    @staticmethod
-    def TrapKill():
-        pass
-
-
-    # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
-    def turtle():
-        pass
-
-
-    #BROKEN
-    def kill_snakes(self, data):
-        move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
-        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50):
-            head = data["you"]["body"][0]
-            move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
-        return move_data
-
-
-
-
-
-
-
-'''
-Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e65162f92c7/
-                    https://play.battlesnake.com/g/8395aa92-1b17-4b8c-a742-ef8d76258d4b/
-                    https://play.battlesnake.com/g/a0bca1c3-9d6a-476b-b5d4-ec64d3736a99/#
-                    https://play.battlesnake.com/g/470299fc-9a04-4583-82fa-ebfc57714553/
-                    https://play.battlesnake.com/g/e115a725-e4d4-4873-9ac2-62e14da676ec/
-                    https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
-                    https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
-                    https://play.battlesnake.com/g/e481ff16-799e-4545-8920-0befbaca2974/
-                    https://play.battlesnake.com/g/212df3fd-6a7b-4704-8a43-1f9a94eb1c02/
-                    
-                    kill_snake bug (dies of starvation)
-                    https://play.battlesnake.com/g/9a0e8a9c-8276-4311-b2e4-7c810a21b1ef/
-'''
