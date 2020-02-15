@@ -51,7 +51,7 @@ class GameBoard():
         # go through all the snakes and add them to the board 
         GameBoard.SnakeBodyCount = 0
         temporary_count = 0
-        GameBoard.Storage_dict = {}
+
         for snake in data["board"]["snakes"]:
 
             if(snake["id"]==data["you"]["id"]):
@@ -66,7 +66,6 @@ class GameBoard():
             '''
             TODO: store each health into a dictionary (call the function called storage)
             '''
-            GameBoard.Storage(snake["id"],temporary_count) # Stores each opponent snakes 
 
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
@@ -76,7 +75,7 @@ class GameBoard():
             self.board[tail["x"]][tail["y"]] = 3
             # add head
             head = snake["body"][0]
-            self.board[head["x"]][head["y"]] = [1, snake["id"]]
+            self.board[head["x"]][head["y"]] = 1
         
         # go through the food and add it to the board
         for food in data["board"]["food"]:
@@ -138,8 +137,6 @@ class GameBoard():
             #     print("tile: ",str(tile)," ","queue is empty")
             
             tile_val = self.board[tile.x][tile.y]
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
 
             if str(tile) in visited:
                 continue
@@ -184,9 +181,6 @@ class GameBoard():
             
             tile_val = self.board[point.x][point.y] 
             
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
-
             if tile_val in valid_tiles: #queue is only filled with 0,3,6,7 to start with
                 queue.append(point)
 
@@ -203,18 +197,12 @@ class GameBoard():
     def get_relative_direction(self, start, end, pg):
         print("im in the relative func")
         temp = end
-        print(temp)
-        print(end)
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
-        print(temp)
+
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
-        
-        print(start)
-        print(temp)
-        print(start.x," ",start.y)
-        print(temp.x," ",temp.y)
+    
 
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
@@ -251,10 +239,6 @@ class GameBoard():
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
             tile_val = self.board[point.x][point.y]
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
-            
-            print(tile_val)
             
             if(tile_val==1): #it is broken here
                 print("safety_protocol returned false")
