@@ -287,9 +287,16 @@ class GameBoard():
 
 
     # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
-    def turtle():
-        pass
-
+    def turtle(self,data):
+        move_data = -1
+        print("CountMyBody: ", GameBoard.MyBodyCount)
+        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        head = data["you"]["body"][0]
+        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<18):
+            move_data = GameBoard.bfs(self,Point(data=head), 7)
+        elif(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["turn"]>100):
+            move_data = GameBoard.bfs(self,Point(data=head), 6)
+        return move_data
 
     #BROKEN
     def kill_snakes(self, data):

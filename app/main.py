@@ -63,6 +63,9 @@ def move():
 
     print("turn: ",data["turn"])
 
+    if(move_data==-1):
+        print("trying kill")
+        move_data = board.turtle(data)
 
     if(move_data==-1):
         print("trying kill")
