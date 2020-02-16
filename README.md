@@ -31,6 +31,8 @@ bfs - now returns -1 if queue becomes empty (exists the loop)
 
 #### Replay and Bugs
 
+Skippy needs to read the future and avoid dying like this
+https://play.battlesnake.com/g/67d67cd6-c825-48d1-b23a-e9d6498055a6/#
 
 I wanted skippy to go down and not the food, not sure why safety_protocol was not working (needs implementing)
 https://play.battlesnake.com/g/6703ff00-9268-4c71-803f-febaed464385/#
