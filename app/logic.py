@@ -29,7 +29,12 @@ class GameBoard():
     """
     SnakeBodyCount  = 0 
     MyBodyCount     = 0 
-    DidIJustEat     = False #check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
+    MyPreviousTile  = -1 # Stores the value of the previous tile Skippy has been on
+    
+    DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
+    print("Making class attributes")
+    
+    
     Storage_dict    = {} # Stores the health of an individual snake
 
     def __init__(self, data=None):
@@ -109,7 +114,7 @@ class GameBoard():
         print(GameBoard.DidIJustEat)
         print(self.Storage_dict)
 
-    def bfs(self, start, num, status=True):
+    def bfs(self, start, num, status_safety=True,status_trap=True):
         """
         Start is the point on the board we start looking from
         Num is the value (look at top) that we are looking for
@@ -152,16 +157,16 @@ class GameBoard():
                 GameBoard.DidIJustEat = False
                 continue
 
-            if(not(self.safety_protocol(tile,num)) and status):
+            if(not(self.safety_protocol(tile,num)) and status_safety):
                 continue
 
-            if(self.trap_protocol(tile)):
+            if(self.trap_protocol(tile) and status_trap):
                 continue
 
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
 
-            if tile_val == 0:
+            if tile_val == 0 or tile_val == 7:
                 self.enqueue_around_point(tile, queue, visited, pg, num)
         
         return -1  #it didnt find what it was looking for 
@@ -224,9 +229,6 @@ class GameBoard():
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
 
-        if(num==1): # if you are trying to kill then proceed to collide with head
-            return True
-
         if(GameBoard.AmIAlpha()):
             return True
 
@@ -246,13 +248,20 @@ class GameBoard():
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
+        print("points before: ",points)
+        invalid_squares = [2,4,5]
+        
+        count = 0
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or self.board[point.x][point.y]==5:
-                points.remove(point)
-            
-        if(len(points)==0):
+            print("points: ", point)
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
+                count+=1
+
+        print("points after: ",points)    
+        if(count==4):
+            print("trap returned true omg")
             return True
+        
         return False
 
 
