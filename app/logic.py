@@ -249,7 +249,7 @@ class GameBoard():
     def trap_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         print("points before: ",points)
-        invalid_squares = [2,4,5]
+        invalid_squares = [1,2,4,5]
         
         count = 0
         for point in points:
