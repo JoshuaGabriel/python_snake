@@ -1,7 +1,12 @@
 # Patch Notes 
 
-### Beta 1.00
+### Beta 1.10
 
+#### What is next
+
+Add a combination of Astar algorithm to be able to provide a 'heuristic' for each square.
+Being able to optimize each square so skippy knows where to go.
+I
 #### Class Attributes
 
 SnakeBodyCount and MyBodyCount - keep track of how large my snake and the opponent snake(largest snake).
@@ -46,9 +51,6 @@ and skippy will proceed to eat to match them.
 Should have gone for the green tail
 https://play.battlesnake.com/g/c00d8640-432a-41a4-a4c2-5ed594af1967/#
 
-#### Coding Issue
-
-Everytime I want to access the value of the tile, I need to check if it is a list, something better should replace this
 
 #### End of Patch Notes
 
