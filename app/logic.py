@@ -166,7 +166,7 @@ class GameBoard():
             if tile_val == num:
                 return self.get_relative_direction(start, tile, pg)
 
-            if tile_val == 0:
+            if tile_val == 0 or tile_val == 7:
                 self.enqueue_around_point(tile, queue, visited, pg, num)
         
         return -1  #it didnt find what it was looking for 
