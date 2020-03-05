@@ -209,6 +209,7 @@ class GameBoard():
             GameBoard.DidIJustEat = False
         
         print("The tile I am going to is: ",temp)
+        print("tile value of: ",self.board[temp.x][temp.y])
 
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
