@@ -30,7 +30,7 @@ class GameBoard():
     SnakeBodyCount  = 0 
     MyBodyCount     = 0 
     MyPreviousTile  = -1 # Stores the value of the previous tile Skippy has been on
-    
+
     DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
     print("Making class attributes")
     
@@ -139,7 +139,7 @@ class GameBoard():
                 continue
 
 
-            print("queue:", queue)
+            # print("queue:", queue)
             print("tile: ", end='')
             print(str(tile))
 
@@ -195,15 +195,18 @@ class GameBoard():
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
+    # Gets the direction of the chosen square so skippy knows where to turn
     def get_relative_direction(self, start, end, pg):
         temp = end
-
+        
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
 
+        
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
         
+        print(GameBoard.DidIJustEat)
         print(temp)
 
         diff_x = start.x - temp.x
@@ -240,10 +243,6 @@ class GameBoard():
                 pass
         
         return True
-
-    '''
-    TODO: need to check further squares AND if the tail is not in sight only then will it be a trapped square 
-    '''
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile):
@@ -271,6 +270,22 @@ class GameBoard():
             return True
         return False 
     
+    '''
+    TODO: this GetLength method
+    Initial Ideas: This will make skippy less likely to go into trapped squares 
+
+    Fallbacks: Not sure if I need a limit to how many squares skippy should look at (I'm guessing the x (the dimension of the board)) most likely will need to limit
+    '''
+    # This method will find the amount of available squares 
+    # Not sure what it will return yet
+    def GetLength(self):
+        pass
+
+
+
+
+
+    # TODO:
     # Stores the health of an individual snake
     # health = health of the snake , id = unique id of the snake 
     # dictionary will be in the form of {id:health}
@@ -298,7 +313,6 @@ class GameBoard():
             move_data = GameBoard.bfs(self,Point(data=head), 6,False,False) #go for tail
         return move_data
 
-    #BROKEN
     def kill_snakes(self, data):
         move_data = -1
         print("CountMyBody: ", GameBoard.MyBodyCount)
@@ -307,27 +321,3 @@ class GameBoard():
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
         return move_data
-
-
-
-
-
-
-
-'''
-Games with bugs :   https://play.battlesnake.com/g/393fcb86-fac1-4cad-b3fe-5e65162f92c7/
-                    https://play.battlesnake.com/g/8395aa92-1b17-4b8c-a742-ef8d76258d4b/
-                    https://play.battlesnake.com/g/a0bca1c3-9d6a-476b-b5d4-ec64d3736a99/#
-                    https://play.battlesnake.com/g/470299fc-9a04-4583-82fa-ebfc57714553/
-                    https://play.battlesnake.com/g/e115a725-e4d4-4873-9ac2-62e14da676ec/
-                    https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
-                    https://play.battlesnake.com/g/25d4a494-58b9-4c75-bc02-7e6de190ec91/
-                    https://play.battlesnake.com/g/e481ff16-799e-4545-8920-0befbaca2974/
-                    https://play.battlesnake.com/g/212df3fd-6a7b-4704-8a43-1f9a94eb1c02/
-                    
-                    kill_snake bug (dies of starvation)
-                    https://play.battlesnake.com/g/9a0e8a9c-8276-4311-b2e4-7c810a21b1ef/
-                    trapped squares
-                    https://play.battlesnake.com/g/1c2762c9-e322-49ac-9975-6510674ffd78/
-                    ye
-'''
