@@ -59,7 +59,7 @@ def move():
     move_data = -1 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
-
+    shouts = ["quotes"]
 
     print("turn: ",data["turn"])
 

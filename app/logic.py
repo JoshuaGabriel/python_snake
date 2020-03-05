@@ -202,12 +202,13 @@ class GameBoard():
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
 
-        
+
         if(self.board[temp.x][temp.y]==7):
             GameBoard.DidIJustEat = True
+        else:
+            GameBoard.DidIJustEat = False
         
-        print(GameBoard.DidIJustEat)
-        print(temp)
+        print("The tile I am going to is: ",temp)
 
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
