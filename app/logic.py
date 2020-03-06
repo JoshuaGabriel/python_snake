@@ -286,6 +286,7 @@ class GameBoard():
         print("tile is: ",tile, "and previous tile is: ", previous_tile)
         if(previous_tile!=None):
             print("Im removing the tile: ",previous_tile)
+            print(searching)
             searching.remove(previous_tile)
         if(len(searching)>1):
             return False
