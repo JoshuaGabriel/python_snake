@@ -286,16 +286,16 @@ class GameBoard():
         print("tile is: ",tile, "and previous tile is: ", previous_tile)
         if(previous_tile!=None):
             print("Im removing the tile: ",previous_tile)
-            print(searching)
-            print(type(previous_tile))
+            print(str(searching))
+            print(str(previous_tile))
             for num in range(len(searching)):
-                if(searching[num]==previous_tile):
+                if(str(searching[num])==str(previous_tile)):
                     searching.pop(num)
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
             return True
-        else:  
+        elif(len(searching==1)):  
             print("Keep checking!")
             self.trap_protocol(searching[0],tile)
 
