@@ -137,7 +137,7 @@ class GameBoard():
                 continue
 
 
-            # print("queue:", queue)
+            print("queue:", queue)
             print("tile: ", end='')
             print(str(tile))
 
@@ -150,6 +150,10 @@ class GameBoard():
                 continue
 
             visited.add(str(tile))
+
+            if(tile==start):
+                continue
+
 
             if (GameBoard.DidIJustEat) and (tile_val == 6) :
                 continue
@@ -226,17 +230,14 @@ class GameBoard():
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
         if(GameBoard.AmIAlpha()):
             return True
-
         for point in points:
             try:
                 if(self.board[point.x][point.y]==1):
                     return False
             except IndexError:
                 pass
-        
         return True
 
     #Returns a list of good points 
@@ -261,7 +262,10 @@ class GameBoard():
         while(len(searching)==1):
             previous_tile = searching[0]
             searching = self.neighbors(searching[0])
-            searching.remove(previous_tile)
+            try:
+                searching.remove(previous_tile)
+            except ValueError:
+                pass
         if(len(searching)==0):
             return True
         return False
