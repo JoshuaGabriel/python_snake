@@ -280,22 +280,19 @@ class GameBoard():
     #         return True
     #     return False
 
-    def trap_protocol(self,tile,previous_tile=None):
+    def trap_protocol(self,tile,previous_tile=None,set=None):
         searching = self.neighbors(tile)
-        str_searching = []
-        for tile in searching:
-            str_searching.append(str(tile))
 
-        
+
+
+
         if(previous_tile!=None):
-            count = 0
-            for tile in str_searching:
-                if(str(previous_tile)==tile):
-                    searching.remove(str(previous_tile))
-                    break
+            count=0
+            for tile in searching:
+                if(tile.x==previous_tile.x and tile.y==previous_tile.y):
+                    searching.pop(count)
                 count+=1
-            searching.pop(count)
-    
+        
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
