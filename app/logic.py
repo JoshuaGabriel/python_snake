@@ -288,8 +288,8 @@ class GameBoard():
             print("Im removing the tile: ",previous_tile)
             print(str(searching))
             print(str(previous_tile))
-            if(previous_tile in searching):
-                searching.remove(previous_tile)
+            if(str(previous_tile) in searching):
+                searching.remove(str(previous_tile))
 
             # for num in range(0,len(searching)):
             #     print(num)
