@@ -241,7 +241,7 @@ class GameBoard():
 
     #Returns a list of good points 
     def neighbors(self,tile):
-        if(AmIAlpha()):
+        if(GameBoard.AmIAlpha()):
             invalid_squares = [2,4,5]
         else:
             invalid_squares = [1,2,4,5]
@@ -265,11 +265,9 @@ class GameBoard():
         if(len(points)==0):
             return True
         elif(len(points)==3):
-            trap_protocol(self,points[0],tile)
+            self.trap_protocol(self,points[0],tile)
         else:
             return False
-
-
 
     @staticmethod
     def AmIAlpha():
