@@ -289,7 +289,7 @@ class GameBoard():
         elif(len(searching)==0):
             return True
         else:
-            self.trap_protocol(searching[0],previous_tile)
+            self.trap_protocol(searching[0],tile)
 
     @staticmethod
     def AmIAlpha():
