@@ -15,11 +15,6 @@ class Point:
     def __repr__(self):
         return "x: " + str(self.x) + " y: " + str(self.y)
     
-    def __eq__(self, other):
-        if ((str(self.x) == str(other.x)) and (str(self.y) == str(other.y))):
-            return True
-        return False
-
 class GameBoard():
     """
     0 - Empty space
@@ -193,7 +188,7 @@ class GameBoard():
         safety_protocol = self.safety_protocol(tile,num)
         
         for point in points:
-            if (not (str(point) in visted) and safety_protocol):
+            if (not (point in visted) and safety_protocol):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
@@ -292,7 +287,9 @@ class GameBoard():
         if(previous_tile!=None):
             print("Im removing the tile: ",previous_tile)
             print(searching)
-            searching.remove(previous_tile)
+            for tile in searching:
+                print(type(tile))
+            searching.remove(str(previous_tile))
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
