@@ -264,8 +264,10 @@ class GameBoard():
 
         if(len(points)==0):
             return True
-        elif(len(points)==3):
-            self.trap_protocol(self,points[0],tile)
+        elif(len(points)==1):
+            remaining_point = points[0]
+            print(remaining_point)
+            self.trap_protocol(self,remaining_point,tile)
         else:
             return False
 
