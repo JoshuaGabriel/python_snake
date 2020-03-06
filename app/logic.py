@@ -252,7 +252,7 @@ class GameBoard():
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
                 continue
-            good_points.append(str(point))
+            good_points.append(point)
         return good_points
 
     # Returns True if the next tile is a trapped tile 
@@ -282,16 +282,20 @@ class GameBoard():
 
     def trap_protocol(self,tile,previous_tile=None):
         searching = self.neighbors(tile)
-        print("Begin search!")
-        print("tile is: ",tile, "and previous tile is: ", previous_tile)
+        str_searching = []
+        for tile in searching:
+            str_searching.append(str(tile))
+
+        
         if(previous_tile!=None):
-            print("Im removing the tile: ",previous_tile)
-            print(str(searching))
-            print(str(previous_tile))
-            
-            if(str(previous_tile) in searching):
-                searching.remove(str(previous_tile))
-                
+            count = 0
+            for tile in str_searching:
+                if(str(previous_tile)==tile):
+                    searching.remove(str(previous_tile))
+                    break
+                count+=1
+            searching.pop(count)
+    
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
