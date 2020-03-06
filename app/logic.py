@@ -285,11 +285,11 @@ class GameBoard():
         if(previous_tile!=None):
             searching.remove(previous_tile)
         if(len(searching)>1):
-            return True
-        elif(len(searching)==0):
             return False
+        elif(len(searching)==0):
+            return True
         else:
-            self.trap(searching[0],previous_tile)
+            self.trap_protocol(searching[0],previous_tile)
 
     @staticmethod
     def AmIAlpha():
