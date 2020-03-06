@@ -288,10 +288,14 @@ class GameBoard():
 
         if(previous_tile!=None):
             count=0
+            print("searching: ",searching)
+            print("removing this tile: ", previous_tile)
             for tile in searching:
                 if(tile.x==previous_tile.x and tile.y==previous_tile.y):
                     searching.pop(count)
+                    break
                 count+=1
+
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
