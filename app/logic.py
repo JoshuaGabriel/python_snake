@@ -240,8 +240,8 @@ class GameBoard():
                 pass
         return True
 
-    #Returns a list of good points 
-    def neighbors(self,tile):
+    #Returns a list of good points (IN STR FORMAT)
+    def neighbors(self,tile): 
         if(GameBoard.AmIAlpha()):
             invalid_squares = [2,4,5]
         else:
@@ -252,7 +252,7 @@ class GameBoard():
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
                 continue
-            good_points.append(point)
+            good_points.append(str(point))
         return good_points
 
     # Returns True if the next tile is a trapped tile 
@@ -288,14 +288,10 @@ class GameBoard():
             print("Im removing the tile: ",previous_tile)
             print(str(searching))
             print(str(previous_tile))
+            
             if(str(previous_tile) in searching):
                 searching.remove(str(previous_tile))
-
-            # for num in range(0,len(searching)):
-            #     print(num)
-            #     if(str(searching[num])==str(previous_tile)):
-            #         searching.pop(num)
-
+                
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
