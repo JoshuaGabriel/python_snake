@@ -289,7 +289,7 @@ class GameBoard():
         elif(len(searching)==0):
             return False
         else:
-            self.trap(tile,previous_tile)
+            self.trap(searching[0],previous_tile)
 
     @staticmethod
     def AmIAlpha():
