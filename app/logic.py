@@ -16,7 +16,7 @@ class Point:
         return "x: " + str(self.x) + " y: " + str(self.y)
     
     def __eq__(self, other):
-        if ((self.x == other.x) and (self.y == other.y)):
+        if ((str(self.x) == str(other.x)) and (str(self.y) == str(other.y))):
             return True
         return False
 
@@ -193,7 +193,7 @@ class GameBoard():
         safety_protocol = self.safety_protocol(tile,num)
         
         for point in points:
-            if (not (point in visted) and safety_protocol):
+            if (not (str(point) in visted) and safety_protocol):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
