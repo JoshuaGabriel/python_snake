@@ -162,6 +162,7 @@ class GameBoard():
                 continue
 
             if(self.trap_protocol(tile) and status_trap):
+                print("trap is continuing")
                 continue
 
             if tile_val == num:
@@ -279,7 +280,7 @@ class GameBoard():
             return True
         else:  
             print("Keep checking!")
-            self.trap_protocol(searching[0],tile)
+            return self.trap_protocol(searching[0],tile)
 
     @staticmethod
     def AmIAlpha():
