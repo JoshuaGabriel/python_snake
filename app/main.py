@@ -96,8 +96,6 @@ def move():
 
 
     # Keep going in the same direction as you were (more likely to be the best move)
-    if(move_data==-1):
-        return
     
     direction = directions[move_data]
 

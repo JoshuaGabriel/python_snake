@@ -260,13 +260,18 @@ class GameBoard():
     def trap_protocol(self,tile):
         searching = self.neighbors(tile)
         while(len(searching)==1):
+            print("Searching")
             previous_tile = searching[0]
             searching = self.neighbors(searching[0])
             try:
+                print("trying to remove a tile")
                 searching.remove(previous_tile)
+                print("removed the tile")
             except ValueError:
+                print("failed")
                 pass
         if(len(searching)==0):
+            print("im returning true")
             return True
         return False
 
