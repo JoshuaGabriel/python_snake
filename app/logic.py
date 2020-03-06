@@ -256,20 +256,15 @@ class GameBoard():
 
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
-    def trap_protocol(self,tile,previous_point=None):
-        points = self.neighbors(tile)
-        
-        if(previous_point!=None):
-            points.remove(tile)
-
-        if(len(points)==0):
+    def trap_protocol(self,tile):
+        searching = self.neighbors(tile)
+        while(len(searching)==1):
+            previous_tile = searching[0]
+            searching = self.neighbors(searching[0])
+            searching.remove(previous_tile)
+        if(len(searching)==0):
             return True
-        elif(len(points)==1):
-            remaining_point = points[0]
-            print(remaining_point)
-            self.trap_protocol(self,remaining_point,tile)
-        else:
-            return False
+        return False
 
     @staticmethod
     def AmIAlpha():
