@@ -260,32 +260,8 @@ class GameBoard():
     '''
     TODO: Fix this, the first tile is not getting removed
     '''
-    # def trap_protocol(self,tile):
-    #     searching = self.neighbors(tile)
-        
-        
-    #     while(len(searching)==1):
-    #         print("Searching")
-    #         previous_tile = searching[0]
-    #         searching = self.neighbors(searching[0])
-    #         try:
-    #             print("trying to remove a tile")
-    #             searching.remove(tile)
-    #             print("removed the tile")
-    #         except ValueError:
-    #             print("failed")
-    #             pass
-    #     if(len(searching)==0):
-    #         print("im returning true")
-    #         return True
-    #     return False
-
     def trap_protocol(self,tile,previous_tile=None):
         searching = self.neighbors(tile)
-
-
-
-
         if(previous_tile!=None):
             count=0
             print("searching: ",searching)
@@ -295,10 +271,11 @@ class GameBoard():
                     searching.pop(count)
                     break
                 count+=1
-
+        print("searching after",searching)
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
+            print("returning true")
             return True
         else:  
             print("Keep checking!")
