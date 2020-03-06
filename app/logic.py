@@ -257,7 +257,7 @@ class GameBoard():
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile,previous_point=None):
-        points = neighbors(tile)
+        points = self.neighbors(tile)
         
         if(previous_point!=None):
             points.remove(tile)
