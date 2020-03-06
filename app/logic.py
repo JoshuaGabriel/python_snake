@@ -295,7 +295,7 @@ class GameBoard():
             return False
         elif(len(searching)==0):
             return True
-        elif(len(searching==1)):  
+        else:  
             print("Keep checking!")
             self.trap_protocol(searching[0],tile)
 
