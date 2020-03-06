@@ -15,7 +15,6 @@ class Point:
     def __repr__(self):
         return "x: " + str(self.x) + " y: " + str(self.y)
 
-
 class GameBoard():
     """
     0 - Empty space
@@ -33,7 +32,6 @@ class GameBoard():
 
     DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
     print("Making class attributes")
-    
     
     Storage_dict    = {} # Stores the health of an individual snake
 
@@ -154,7 +152,6 @@ class GameBoard():
             visited.add(str(tile))
 
             if (GameBoard.DidIJustEat) and (tile_val == 6) :
-                GameBoard.DidIJustEat = False
                 continue
 
             if(not(self.safety_protocol(tile,num)) and status_safety):
@@ -173,15 +170,11 @@ class GameBoard():
 
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-
         valid_tiles = [0,3,6,7]
-
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
-            
             tile_val = self.board[point.x][point.y] 
-
             if tile_val in valid_tiles: #queue is only filled with 0,3,6,7 to start with
                 queue.append(point)
 
@@ -245,25 +238,37 @@ class GameBoard():
                 pass
         
         return True
+
+    #Returns a list of good points 
+    def neighbors(self,tile):
+        if(AmIAlpha()):
+            invalid_squares = [2,4,5]
+        else:
+            invalid_squares = [1,2,4,5]
+
+        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
+        good_points = []
+        for point in points:
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
+                continue
+            good_points.append(point)
+        return good_points
+
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
-    def trap_protocol(self,tile):
-        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-        print("points before: ",points)
-        invalid_squares = [1,2,4,5]
+    def trap_protocol(self,tile,previous_point=None):
+        points = neighbors(tile)
         
-        count = 0
-        for point in points:
-            print("points: ", point)
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
-                count+=1
+        if(previous_point!=None):
+            points.remove(tile)
 
-        print("points after: ",points)    
-        if(count==4):
-            print("trap returned true omg")
+        if(len(points)==0):
             return True
-        
-        return False
+        elif(len(points)==3):
+            trap_protocol(self,points[0],tile)
+        else:
+            return False
+
 
 
     @staticmethod
@@ -284,9 +289,6 @@ class GameBoard():
         pass
 
 
-
-
-
     # TODO:
     # Stores the health of an individual snake
     # health = health of the snake , id = unique id of the snake 
@@ -298,9 +300,34 @@ class GameBoard():
 
 
     # Will Trap a snake in a corner situation 
+
+    '''
+
+    Get relative direction of enemy snake
+    https://play.battlesnake.com/g/bf1f56d2-403e-482d-a324-8d0222a0cdb1/#
+
+    my head is at: (3,1) 
+    for example ((1,1) (9,1) (1,9) (9,9)) for 11x11 grid 
+        if (((head.x == edge.x) or (head.y==edge.y)) and (im not at the width or height)) and (enemeny head is at the edge and I'm beside it +1):
+            go for the end of board to kill them
+        elif(if im at the end of the board)
+            return -1
+        else: 
+            return -1
+
+
+        to see how I am inside I need to get my head's coords 
+    
+    if(im inside of ((1,1) (9,1) (1,9) (9,9)))
+
+    '''
     @staticmethod
     def TrapKill():
         pass
+
+
+
+
 
 
     # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
