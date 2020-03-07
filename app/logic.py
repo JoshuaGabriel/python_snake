@@ -259,9 +259,9 @@ class GameBoard():
             count=0
             print("searching: ",searching)
             print("removing this tile: ", previous_tile)
-            for tile in searching:
-                if(tile.x==previous_tile.x and tile.y==previous_tile.y):
-                    nah=searching.pop(count)
+            for square in searching:
+                if(square.x==previous_tile.x and square.y==previous_tile.y):
+                    searching.pop(count)
                     break
                 count+=1
         print("searching after",searching)
