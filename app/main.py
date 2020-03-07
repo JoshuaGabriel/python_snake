@@ -70,10 +70,14 @@ def move():
     if(move_data==-1):
         print("trying kill")
         move_data = board.kill_snakes(data)
-
+        
     if(move_data==-1):
         print("trying food")
         move_data = board.bfs(Point(data=head), 7) # go for your Food
+
+    if(move_data==-1):
+        print("trying my tail")
+        move_data = board.bfs(Point(data=head), 6) # go for your tail
 
     if(move_data==-1):
         print("trying my tail")
@@ -83,6 +87,10 @@ def move():
     if(move_data==-1):
         print("trying enemy tail")
         move_data = board.bfs(Point(data=head), 3) # go for enemy tail
+
+    if(move_data==-1):
+        print("trying enemy tail")
+        move_data = board.bfs(Point(data=head), 3, False,False) # go for enemy tail
 
     if(move_data==-1):
         print("trying empty space")

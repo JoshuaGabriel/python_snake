@@ -237,7 +237,6 @@ class GameBoard():
 
     #Returns a list of good points (IN STR FORMAT)
     def neighbors(self,tile): 
-
         invalid_squares = [1,2,4,5]
 
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
