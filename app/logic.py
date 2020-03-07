@@ -281,7 +281,6 @@ class GameBoard():
         visited = set()
         visited.add(str(tile))
         while(len(searching)==1):
-            searching = self.neighbors(searching[0])
             print("visited: ",visited)
             print(searching)
             print(tile)
@@ -299,6 +298,7 @@ class GameBoard():
 
             tile = searching[0]
             visited.add(str(searching[0]))
+            searching = self.neighbors(searching[0])
 
         return False
 
