@@ -59,16 +59,18 @@ def move():
     move_data = -1 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
-
+    shouts = ["quotes"]
 
     print("turn: ",data["turn"])
 
+    if(move_data==-1):
+        print("trying turtle")
+        move_data = board.turtle(data)
 
     if(move_data==-1):
         print("trying kill")
         move_data = board.kill_snakes(data)
-
-    # returns -1 if he is trapped (no food)
+        
     if(move_data==-1):
         print("trying food")
         move_data = board.bfs(Point(data=head), 7) # go for your Food
@@ -77,11 +79,19 @@ def move():
         print("trying my tail")
         move_data = board.bfs(Point(data=head), 6) # go for your tail
 
+    if(move_data==-1):
+        print("trying my tail")
+        move_data = board.bfs(Point(data=head), 6, False, False) # go for your tail
+
     # last resort option
     if(move_data==-1):
         print("trying enemy tail")
         move_data = board.bfs(Point(data=head), 3) # go for enemy tail
-    
+
+    if(move_data==-1):
+        print("trying enemy tail")
+        move_data = board.bfs(Point(data=head), 3, False,False) # go for enemy tail
+
     if(move_data==-1):
         print("trying empty space")
         move_data = board.bfs(Point(data=head), 0,False) # go for empty spaces
@@ -90,6 +100,10 @@ def move():
         print("trying empty space v2")
         move_data = board.bfs(Point(data=head), 0,False,False) # go for empty spaces
 
+
+
+    # Keep going in the same direction as you were (more likely to be the best move)
+    
     direction = directions[move_data]
 
     print("Direction: ", direction)
