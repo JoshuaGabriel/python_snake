@@ -254,6 +254,7 @@ class GameBoard():
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile,previous_tile=None):
         searching = self.neighbors(tile)
+        print("This is the tile: ",tile)
         if(previous_tile!=None):
             count=0
             print("searching: ",searching)
@@ -271,9 +272,8 @@ class GameBoard():
             return True
         else:  
             print("Keep checking!:" )
-            previous_tile = tile 
-            print(previous_tile)
-            return self.trap_protocol(searching[0],previous_tile)
+            print("previous_tile: ",previous_tile)
+            return self.trap_protocol(tile=(searching[0]),previous_tile=tile)
 
     # def trap_protocol(self,tile):
     #     print("Begin the investigation!")
