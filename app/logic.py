@@ -118,13 +118,9 @@ class GameBoard():
         Num is the value (look at top) that we are looking for
         Status is used to overide the safety protocol, this will default to True, unless specified
         """ 
-
         queue = []
         visited = set()
         pg = {} # parent graph
-        """
-        The parent graph (point:tile) points to the direction where it was generated
-        """
         # add the tiles around the head
         self.enqueue_around_head(start, queue)
 
@@ -154,14 +150,13 @@ class GameBoard():
             if(tile==start):
                 continue
 
-
             if (GameBoard.DidIJustEat) and (tile_val == 6) :
                 continue
 
-            if(status_safety and not(self.safety_protocol(tile,num))):
+            if(not(self.safety_protocol(tile,num)) and status_safety):
                 continue
 
-            if(status_trap and self.trap_protocol(tile)):
+            if(self.trap_protocol(tile) and status_trap):
                 continue
 
             if tile_val == num:
@@ -279,27 +274,31 @@ class GameBoard():
 
     #         return self.trap_protocol(searching[0],tile)
 
-
     def trap_protocol(self,tile):
+        print("Begin the investigation!")
         searching = self.neighbors(tile)
+        print(searching)
         visited = set()
         visited.add(str(tile))
         while(len(searching)==1):
             searching = self.neighbors(searching[0])
+            print(searching)
+            print(tile)
+            
             if(str(tile) in visited):
                 count=0
                 for square in searching:
                     if(tile.x==square.x and tile.y==square.y):
                         searching.pop(count)
                     count+=1
+
+            print("searching after removed", searching)
             if(len(searching)==0):
                 return True
-            
+    
             tile = searching[0]
-        
-        
-        if(len(searching)>1):
-            return False
+
+        return False
 
 
     @staticmethod
