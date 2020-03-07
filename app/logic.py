@@ -158,11 +158,10 @@ class GameBoard():
             if (GameBoard.DidIJustEat) and (tile_val == 6) :
                 continue
 
-            if(not(self.safety_protocol(tile,num)) and status_safety):
+            if(status_safety and not(self.safety_protocol(tile,num))):
                 continue
 
-            if(self.trap_protocol(tile) and status_trap):
-                print("trap is continuing")
+            if(status_trap and self.trap_protocol(tile)):
                 continue
 
             if tile_val == num:
@@ -258,29 +257,49 @@ class GameBoard():
 
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
-    '''
-    TODO: Fix this, the first tile is not getting removed
-    '''
-    def trap_protocol(self,tile,previous_tile=None):
+    # def trap_protocol(self,tile,previous_tile=None):
+    #     searching = self.neighbors(tile)
+    #     if(previous_tile!=None):
+    #         count=0
+    #         print("searching: ",searching)
+    #         print("removing this tile: ", previous_tile)
+    #         for tile in searching:
+    #             if(tile.x==previous_tile.x and tile.y==previous_tile.y):
+    #                 searching.pop(count)
+    #                 break
+    #             count+=1
+    #     print("searching after",searching)
+    #     if(len(searching)>1):
+    #         return False
+    #     elif(len(searching)==0):
+    #         print("returning true")
+    #         return True
+    #     else:  
+    #         print("Keep checking!:" )
+
+    #         return self.trap_protocol(searching[0],tile)
+
+
+    def trap_protocol(self,tile):
         searching = self.neighbors(tile)
-        if(previous_tile!=None):
-            count=0
-            print("searching: ",searching)
-            print("removing this tile: ", previous_tile)
-            for tile in searching:
-                if(tile.x==previous_tile.x and tile.y==previous_tile.y):
-                    searching.pop(count)
-                    break
-                count+=1
-        print("searching after",searching)
-        if(len(searching)>1):
-            return False
-        elif(len(searching)==0):
-            print("returning true")
+        visited = set()
+        visited.add(str(tile))
+        while(len(searching)==1):
+            searching = self.neighbors(searching[0])
+            if(str(tile) in visited):
+                count=0
+                for square in searching:
+                    if(tile.x==square.x and tile.y==square.y):
+                        searching.pop(count)
+                    count+=1
+            
+            tile = searching[0]
+
+        if(len(searching)==0):
             return True
-        else:  
-            print("Keep checking!")
-            return self.trap_protocol(searching[0],tile)
+        elif(len(searching)>1):
+            return False
+
 
     @staticmethod
     def AmIAlpha():

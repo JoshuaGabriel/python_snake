@@ -78,13 +78,13 @@ def move():
 
     if(move_data==-1):
         print("trying my tail")
-        move_data = board.bfs(Point(data=head), 6) # go for your tail
+        move_data = board.bfs(Point(data=head), 6, False, False) # go for your tail
 
     # last resort option
     if(move_data==-1):
         print("trying enemy tail")
         move_data = board.bfs(Point(data=head), 3) # go for enemy tail
-    
+
     if(move_data==-1):
         print("trying empty space")
         move_data = board.bfs(Point(data=head), 0,False) # go for empty spaces
