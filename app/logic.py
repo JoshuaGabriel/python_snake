@@ -292,12 +292,13 @@ class GameBoard():
                     if(tile.x==square.x and tile.y==square.y):
                         searching.pop(count)
                     count+=1
+            if(len(searching)==0):
+                return True
             
             tile = searching[0]
-
-        if(len(searching)==0):
-            return True
-        elif(len(searching)>1):
+        
+        
+        if(len(searching)>1):
             return False
 
 
