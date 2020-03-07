@@ -237,10 +237,8 @@ class GameBoard():
 
     #Returns a list of good points (IN STR FORMAT)
     def neighbors(self,tile): 
-        if(GameBoard.AmIAlpha()):
-            invalid_squares = [2,4,5]
-        else:
-            invalid_squares = [1,2,4,5]
+
+        invalid_squares = [1,2,4,5]
 
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         good_points = []
@@ -276,35 +274,6 @@ class GameBoard():
             previous_tile = Point(x=tile.x,y=tile.y)
             print(previous_tile)
             return self.trap_protocol(tile=searching[0],previous_tile=previous_tile)
-
-    # def trap_protocol(self,tile):
-    #     print("Begin the investigation!")
-    #     searching = self.neighbors(tile)
-    #     print(searching)
-    #     visited = set()
-    #     visited.add(str(tile))
-    #     while(len(searching)==1):
-    #         print("visited: ",visited)
-    #         print(searching)
-    #         print(tile)
-            
-    #         if(str(tile) in visited):
-    #             count=0
-    #             for square in searching:
-    #                 if(tile.x==square.x and tile.y==square.y):
-    #                     searching.pop(count)
-    #                 count+=1
-
-    #         print("searching after removed", searching)
-    #         if(len(searching)==0):
-    #             return True
-
-    #         tile = searching[0]
-    #         visited.add(str(searching[0]))
-    #         searching = self.neighbors(searching[0])
-
-    #     return False
-
 
     @staticmethod
     def AmIAlpha():
