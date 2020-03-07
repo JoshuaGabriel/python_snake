@@ -295,8 +295,9 @@ class GameBoard():
             print("searching after removed", searching)
             if(len(searching)==0):
                 return True
-    
+
             tile = searching[0]
+            visited.add(str(searching[0]))
 
         return False
 
