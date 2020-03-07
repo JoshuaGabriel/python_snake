@@ -282,6 +282,7 @@ class GameBoard():
         visited.add(str(tile))
         while(len(searching)==1):
             searching = self.neighbors(searching[0])
+            print("visited: ",visited)
             print(searching)
             print(tile)
             
