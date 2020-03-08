@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-
+import time
 
 from app.api import ping_response, start_response, move_response, end_response
 from app.logic import *
@@ -63,41 +63,43 @@ def move():
 
     print("turn: ",data["turn"])
 
+
+    start = time.time()
     if(move_data==-1):
-        print("trying turtle")
+        # print("trying turtle")
         move_data = board.turtle(data)
 
     if(move_data==-1):
-        print("trying kill")
+        # print("trying kill")
         move_data = board.kill_snakes(data)
         
     if(move_data==-1):
-        print("trying food")
+        # print("trying food")
         move_data = board.bfs(Point(data=head), 7) # go for your Food
 
     if(move_data==-1):
-        print("trying my tail")
+        # print("trying my tail")
         move_data = board.bfs(Point(data=head), 6) # go for your tail
 
     if(move_data==-1):
-        print("trying my tail")
+        # print("trying my tail")
         move_data = board.bfs(Point(data=head), 6, False, False) # go for your tail
 
     # last resort option
     if(move_data==-1):
-        print("trying enemy tail")
+        # print("trying enemy tail")
         move_data = board.bfs(Point(data=head), 3) # go for enemy tail
 
     if(move_data==-1):
-        print("trying enemy tail")
+        # print("trying enemy tail")
         move_data = board.bfs(Point(data=head), 3, False,False) # go for enemy tail
 
     if(move_data==-1):
-        print("trying empty space")
+        # print("trying empty space")
         move_data = board.bfs(Point(data=head), 0,False) # go for empty spaces
     
     if(move_data==-1):
-        print("trying empty space v2")
+        # print("trying empty space v2")
         move_data = board.bfs(Point(data=head), 0,False,False) # go for empty spaces
 
 
@@ -107,7 +109,8 @@ def move():
     direction = directions[move_data]
 
     print("Direction: ", direction)
-
+    end = time.time()
+    print("Time elapsed: ",end - start)
     return move_response(direction)
 
 @bottle.post('/end')

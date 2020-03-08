@@ -72,8 +72,6 @@ class GameBoard():
             TODO: store each health into a dictionary (call the function called storage)
             '''
 
-
-
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
 
@@ -101,8 +99,8 @@ class GameBoard():
         you_head = data["you"]["body"][0]
         self.board[you_head["x"]][you_head["y"]] = 4
 
-        print("This is the created board")
-        self.printBoard()
+        # print("This is the created board")
+        # self.printBoard()
 
     def printBoard(self):
         for x in range(0, self.height):
@@ -134,9 +132,9 @@ class GameBoard():
                 continue
 
 
-            print("queue:", queue)
-            print("tile: ", end='')
-            print(str(tile))
+            # print("queue:", queue)
+            # print("tile: ", end='')
+            # print(str(tile))
 
             tile_val = self.board[tile.x][tile.y]
 
@@ -201,8 +199,7 @@ class GameBoard():
         else:
             GameBoard.DidIJustEat = False
         
-        print("The tile I am going to is: ",temp)
-        print("tile value of: ",self.board[temp.x][temp.y])
+        # print("The tile I am going to is: ",temp)
 
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
@@ -351,8 +348,8 @@ class GameBoard():
     # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
     def turtle(self,data):
         move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        # print("CountMyBody: ", GameBoard.MyBodyCount)
+        # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         head = data["you"]["body"][0]
         if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<18): 
             move_data = GameBoard.bfs(self,Point(data=head), 7) #go for food
@@ -362,8 +359,8 @@ class GameBoard():
 
     def kill_snakes(self, data):
         move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        # print("CountMyBody: ", GameBoard.MyBodyCount)
+        # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50):
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
