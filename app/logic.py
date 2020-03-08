@@ -261,11 +261,12 @@ class GameBoard():
             return True
         else:
             good_points = self.ValidPoints_y(tile)
-            if(self.board[good_points[0].x][good_points[0].y]==1):
-                vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
-                vector2 = np.array([good_points[0].x-tile.x,good_points[0].y-tile.y])
-                if(np.vdot(vector1,vector2)==0):
-                    return True
+            if(len(good_points)==0):
+                if(self.board[good_points[0].x][good_points[0].y]==1):
+                    vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
+                    vector2 = np.array([good_points[0].x-tile.x,good_points[0].y-tile.y])
+                    if(np.vdot(vector1,vector2)==0):
+                        return True
 
             previous_tile = Point(x=tile.x,y=tile.y)
             return self.trap_protocol(tile=searching[0],previous_tile=previous_tile)
@@ -280,6 +281,10 @@ class GameBoard():
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
                 continue
             good_points.append(point)
+        
+        if(len(good_points)==0):
+            buffer = False
+
         return good_points
 
     @staticmethod
