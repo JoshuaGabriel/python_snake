@@ -261,7 +261,7 @@ class GameBoard():
             return True
         else:
             good_points = self.ValidPoints_y(tile)
-            if(len(good_points)==0):
+            if(len(good_points)==1):
                 if(self.board[good_points[0].x][good_points[0].y]==1):
                     vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
                     vector2 = np.array([good_points[0].x-tile.x,good_points[0].y-tile.y])
