@@ -60,8 +60,8 @@ def move():
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
-    # print("turn: ",data["turn"])
-    start = time.time()
+    print("turn: ",data["turn"])
+    # start = time.time()
     if(move_data==-1):
         # print("trying turtle")
         move_data = board.turtle(data)
@@ -104,9 +104,9 @@ def move():
     direction = directions[move_data]
 
     # print("Direction: ", direction)
-    end = time.time()
+    # end = time.time()
     
-    print("Time elapsed: ",end - start)
+    # print("Time elapsed: ",end - start)
     
     return move_response(direction)
 

@@ -266,6 +266,7 @@ class GameBoard():
                 vector1 = Point(x=searching[0].x-tile.x,y=searching[0].y-tile.y)
                 vector2 = Point(x=head.x-tile.x,y=head.y-tile.y)
                 dot_product = vector1.x*vector2.x + vector1.y*vector2.y
+                print(dot_product)
                 if(dot_product==0):
                     return True
             previous_tile = Point(x=tile.x,y=tile.y)
