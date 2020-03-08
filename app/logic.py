@@ -237,10 +237,10 @@ class GameBoard():
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         good_points = []
         for point in points:
+            if(self.board[point.x][point.y]==1):
+                head = point       
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
                 continue
-            elif(self.board[point.x][point.y]==1):
-                head = point
             good_points.append(point)
         return good_points,head
 
