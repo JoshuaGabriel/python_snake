@@ -242,12 +242,12 @@ class GameBoard():
             elif(self.board[point.x][point.y]==1):
                 head = point
             good_points.append(point)
-        return good_points,point
+        return good_points,head
 
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile,previous_tile=None):
-        searching,head = self.neighbors(tile)
+        searching, head = self.neighbors(tile)
         
         if(previous_tile!=None):
             count=0
