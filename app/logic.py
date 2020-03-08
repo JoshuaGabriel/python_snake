@@ -30,7 +30,6 @@ class GameBoard():
     MyPreviousTile  = -1 # Stores the value of the previous tile Skippy has been on
 
     DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
-    print("Making class attributes")
     
     Storage_dict    = {} # Stores the health of an individual snake
 
@@ -99,8 +98,8 @@ class GameBoard():
         you_head = data["you"]["body"][0]
         self.board[you_head["x"]][you_head["y"]] = 4
 
-        print("This is the created board")
-        self.printBoard()
+        # print("This is the created board")
+        # self.printBoard()
 
     def printBoard(self):
         for x in range(0, self.height):
@@ -132,14 +131,11 @@ class GameBoard():
                 continue
 
 
-            print("queue:", queue)
-            print("tile: ", end='')
-            print(str(tile))
+            # print("queue:", queue)
+            # print("tile: ", end='')
+            # print(str(tile))
 
             tile_val = self.board[tile.x][tile.y]
-
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
 
             if str(tile) in visited:
                 continue
@@ -199,8 +195,8 @@ class GameBoard():
         else:
             GameBoard.DidIJustEat = False
         
-        print("The tile I am going to is: ",temp)
-        print("tile value of: ",self.board[temp.x][temp.y])
+        # print("The tile I am going to is: ",temp)
+        # print("tile value of: ",self.board[temp.x][temp.y])
 
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
@@ -292,17 +288,6 @@ class GameBoard():
     def GetLength(self):
         pass
 
-
-    # TODO:
-    # Stores the health of an individual snake
-    # health = health of the snake , id = unique id of the snake 
-    # dictionary will be in the form of {id:health}
-    @staticmethod
-    def Storage(id_string,health):
-        GameBoard.Storage_dict[id_string]=health
-
-
-
     # Will Trap a snake in a corner situation 
 
     '''
@@ -332,8 +317,8 @@ class GameBoard():
     # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
     def turtle(self,data):
         move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        # print("CountMyBody: ", GameBoard.MyBodyCount)
+        # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         head = data["you"]["body"][0]
         if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<25): 
             move_data = GameBoard.bfs(self,Point(data=head), 7) #go for food
@@ -343,8 +328,8 @@ class GameBoard():
 
     def kill_snakes(self, data):
         move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        # print("CountMyBody: ", GameBoard.MyBodyCount)
+        # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50 and data["you"]["health"]>28):
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 

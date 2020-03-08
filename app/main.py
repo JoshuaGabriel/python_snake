@@ -59,11 +59,8 @@ def move():
     move_data = -1 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
-    shouts = ["quotes"]
 
-    print("turn: ",data["turn"])
-
-
+    # print("turn: ",data["turn"])
     start = time.time()
     if(move_data==-1):
         # print("trying turtle")
@@ -101,14 +98,16 @@ def move():
     if(move_data==-1):
         # print("trying empty space v2")
         move_data = board.bfs(Point(data=head), 0,False,False) # go for empty spaces
-    
+
     # Keep going in the same direction as you were (more likely to be the best move)
     
     direction = directions[move_data]
 
-    print("Direction: ", direction)
+    # print("Direction: ", direction)
     end = time.time()
+    
     print("Time elapsed: ",end - start)
+    
     return move_response(direction)
 
 @bottle.post('/end')
