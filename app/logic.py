@@ -238,7 +238,7 @@ class GameBoard():
 
     #Returns a list of good points (IN STR FORMAT)
     def neighbors(self,tile): 
-        invalid_squares = [2,4,5]
+        invalid_squares = [1,2,4,5]
         head = None
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         good_points = []
@@ -266,8 +266,6 @@ class GameBoard():
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
-            return True
-        elif((len(searching)==1) and self.board[searching[0].x][searching[0].y]==1):
             return True
         else:
             if(head!=None):          
