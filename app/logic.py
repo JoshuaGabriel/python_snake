@@ -1,3 +1,4 @@
+import numpy as np
 
 class Point:
     def __init__(self, data=None, x=0, y=0):
@@ -237,7 +238,7 @@ class GameBoard():
 
     #Returns a list of good points (IN STR FORMAT)
     def neighbors(self,tile): 
-        invalid_squares = [1,2,4,5]
+        invalid_squares = [2,4,5]
 
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         good_points = []
@@ -251,28 +252,30 @@ class GameBoard():
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile,previous_tile=None):
         searching = self.neighbors(tile)
-        print("This is the tile: ",tile)
+        
         if(previous_tile!=None):
             count=0
-            print("searching: ",searching)
-            print("removing this tile: ", previous_tile)
             for square in searching:
                 if(square.x==previous_tile.x and square.y==previous_tile.y):
                     searching.pop(count)
                     break
                 count+=1
-        print("searching after",searching)
+
         if(len(searching)>1):
+            if(len(searching)==2 and (self.board[searching[0].x][searching[0].y]==1 or self.board[searching[1].x][searching[1].y]==1)):
+                vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
+                vector2 = np.array([searching[1].x-tile.x,searching[1].y-tile.y])
+                if(np.vdot(vector1,vector2)==0):
+                    return True
             return False
         elif(len(searching)==0):
-            print("returning true")
             return True
-        else:  
-            print("Keep checking!:" )
-            print("This is the tile again to check: ", tile)
+        elif((len(searching)==1) and self.board[searching[0].x][searching[0].y]==1):
+            return True
+        else:
             previous_tile = Point(x=tile.x,y=tile.y)
-            print(previous_tile)
             return self.trap_protocol(tile=searching[0],previous_tile=previous_tile)
+
 
     @staticmethod
     def AmIAlpha():
