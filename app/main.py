@@ -101,9 +101,7 @@ def move():
     if(move_data==-1):
         # print("trying empty space v2")
         move_data = board.bfs(Point(data=head), 0,False,False) # go for empty spaces
-
-
-
+    
     # Keep going in the same direction as you were (more likely to be the best move)
     
     direction = directions[move_data]

@@ -1,5 +1,3 @@
-import numpy as np
-
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -269,10 +267,11 @@ class GameBoard():
             return True
         else:
             if(head!=None):          
-                vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
-                vector2 = np.array([head.x-tile.x,head.y-tile.y])
-                if(np.vdot(vector1,vector2)==0):
-                    return True
+                vector1 = Point(x=searching[0].x-tile.x,y=searching[0].y-tile.y)
+                vector2 = Point(x=head.x-tile.x,y=head.y-tile.y)
+                dot_product = vector1.x*vector2.x + vector1.y*vector2.y
+            if(dot_product==0):
+                return True
             previous_tile = Point(x=tile.x,y=tile.y)
             return self.trap_protocol(tile=searching[0],previous_tile=previous_tile)
 
