@@ -216,12 +216,6 @@ class GameBoard():
         if diff_y == 1:
             return 0
 
-
-    '''
-    TODO: need to say that it is safe to hit a head if I'm beside a snake with a lower health (not necessarily the biggest health)
-    plan:
-        implement other snake's ID or health to their head
-    '''
     # returns false if the tile is dangerous (beside an opponent snake head)
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
@@ -238,7 +232,7 @@ class GameBoard():
 
     #Returns a list of good points (IN STR FORMAT)
     def neighbors(self,tile): 
-        invalid_squares = [2,4,5]
+        invalid_squares = [1,2,4,5]
 
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         good_points = []
@@ -262,20 +256,31 @@ class GameBoard():
                 count+=1
 
         if(len(searching)>1):
-            if(len(searching)==2 and (self.board[searching[0].x][searching[0].y]==1 or self.board[searching[1].x][searching[1].y]==1)):
-                vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
-                vector2 = np.array([searching[1].x-tile.x,searching[1].y-tile.y])
-                if(np.vdot(vector1,vector2)==0):
-                    return True
             return False
         elif(len(searching)==0):
             return True
-        elif((len(searching)==1) and self.board[searching[0].x][searching[0].y]==1):
-            return True
         else:
+            good_points = self.ValidPoints_y(tile)
+            if(self.board[good_points[0].x][good_points.y]==1):
+                vector1 = np.array([searching[0].x-tile.x,searching[0].y-tile.y])
+                vector2 = np.array([good_points[0].x-tile.x,good_points[0].y-tile.y])
+                if(np.vdot(vector1,vector2)==0):
+                    return True
+
             previous_tile = Point(x=tile.x,y=tile.y)
             return self.trap_protocol(tile=searching[0],previous_tile=previous_tile)
 
+    # Returns non out of bounds y coords beside the tile
+    def ValidPoints_y(self,tile):
+        points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1))]
+        good_points = []
+        invalid_squares = [2,4,5]
+        
+        for point in points:
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
+                continue
+            good_points.append(point)
+        return good_points
 
     @staticmethod
     def AmIAlpha():
@@ -283,6 +288,8 @@ class GameBoard():
             return True
         return False 
     
+
+
     '''
     TODO: this GetLength method
     Initial Ideas: This will make skippy less likely to go into trapped squares 
