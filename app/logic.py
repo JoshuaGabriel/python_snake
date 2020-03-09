@@ -232,17 +232,16 @@ class GameBoard():
             if(self.board[point.x][point.y]==1):
                 for snake in self.data["board"]["snakes"]:
                     print("length of snakes",len(self.data["board"]["snakes"]))
-                    print("snake.x",snake["body"][0]["x"])
-                    print("point.x",point.x)
-                    if(str(snake["body"][0]["x"])==point.x and str(snake["body"][0]["y"])==point.y):
+                    print("snake.x: ",snake["body"][0]["x"]," snake.y: ",snake["body"][0]["y"])
+                    print("point.x: ",point.x," point.y: ",point.y)
+                    print(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y))
+                    if(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y)):
                         count = 0
                         for bodypart in snake["body"]:
                             count+=1
                         if(GameBoard.AmIAlpha(count)):
                             return True
                         break
-
-
                 return False
         return True
 
