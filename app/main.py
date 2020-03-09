@@ -107,8 +107,10 @@ def move():
     # end = time.time()
     
     # print("Time elapsed: ",end - start)
-    
-    return move_response(direction)
+    matrix = board.GetBoard()
+
+
+    return move_response(direction,str(data["turn"]))
 
 @bottle.post('/end')
 def end():

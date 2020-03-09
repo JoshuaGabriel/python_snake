@@ -29,9 +29,8 @@ class GameBoard():
     MyBodyCount     = 0 
     MyPreviousTile  = -1 # Stores the value of the previous tile Skippy has been on
 
-    DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
-    
-    Storage_dict    = {} # Stores the health of an individual snake
+    DidIJustEat     = 0 # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
+
 
     def __init__(self, data=None):
         """Creates a new game board"""
@@ -53,7 +52,6 @@ class GameBoard():
         # go through all the snakes and add them to the board 
         GameBoard.SnakeBodyCount = 0
         temporary_count = 0
-        GameBoard.Storage_dict = {}
         for snake in data["board"]["snakes"]:
 
             if(snake["id"]==data["you"]["id"]):
@@ -64,13 +62,6 @@ class GameBoard():
                 self.board[bodypart["x"]][bodypart["y"]] = 2
 
                 temporary_count+=1
-
-            '''
-            TODO: store each health into a dictionary (call the function called storage)
-            '''
-
-
-
             if(temporary_count>GameBoard.SnakeBodyCount):
                 GameBoard.SnakeBodyCount = temporary_count
 
@@ -100,6 +91,8 @@ class GameBoard():
 
         # print("This is the created board")
         # self.printBoard()
+    def GetBoard(self):
+        return self.board
 
     def printBoard(self):
         for x in range(0, self.height):
@@ -210,12 +203,6 @@ class GameBoard():
         if diff_y == 1:
             return 0
 
-
-    '''
-    TODO: need to say that it is safe to hit a head if I'm beside a snake with a lower health (not necessarily the biggest health)
-    plan:
-        implement other snake's ID or health to their head
-    '''
     # returns false if the tile is dangerous (beside an opponent snake head)
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
@@ -303,18 +290,6 @@ class GameBoard():
         else:
             return False 
     
-    '''
-    TODO: this GetLength method
-    Initial Ideas: This will make skippy less likely to go into trapped squares 
-    Fallbacks: Not sure if I need a limit to how many squares skippy should look at (I'm guessing the x (the dimension of the board)) most likely will need to limit
-    '''
-    # This method will find the amount of available squares 
-    # Not sure what it will return yet
-    def GetLength(self):
-        pass
-
-    # Will Trap a snake in a corner situation 
-
     '''
     Get relative direction of enemy snake
     https://play.battlesnake.com/g/bf1f56d2-403e-482d-a324-8d0222a0cdb1/#
