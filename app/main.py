@@ -59,7 +59,7 @@ def move():
     move_data = -1 
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
-
+    print(data["you"]["shout"])
     print("turn: ",data["turn"])
     # start = time.time()
     if(move_data==-1):
