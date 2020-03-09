@@ -80,7 +80,7 @@ def move():
 
     if(move_data==-1):
         # print("trying my tail")
-        move_data = board.bfs(Point(data=head), 6, False, False) # go for your tail
+        move_data = board.bfs(Point(data=head), 6, True, False) # go for your tail
 
     # last resort option
     if(move_data==-1):
