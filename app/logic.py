@@ -167,11 +167,9 @@ class GameBoard():
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-        
-        safety_protocol = self.safety_protocol(tile,num)
-        
+    
         for point in points:
-            if (not (point in visted) and safety_protocol):
+            if (not (point in visted)):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
@@ -211,7 +209,6 @@ class GameBoard():
         if(GameBoard.AmIAlpha()):
             return True
 
-        
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
