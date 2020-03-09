@@ -237,9 +237,10 @@ class GameBoard():
                         count = 0
                         for bodypart in snake["body"]:
                             count+=1
+                        if(GameBoard.AmIAlpha(count)):
+                            return True
                         break
-                if(GameBoard.AmIAlpha(count)):
-                    return True
+
 
                 return False
         return True
