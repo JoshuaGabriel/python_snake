@@ -1,2 +1,2 @@
-# python_snake
-Python Snake for BattleSnake2020
+# Battlesnake2020
+Battlesnake made with python using breadth first search
