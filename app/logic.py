@@ -1,4 +1,3 @@
-
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -31,7 +30,6 @@ class GameBoard():
     MyPreviousTile  = -1 # Stores the value of the previous tile Skippy has been on
 
     DidIJustEat     = False # Check if I am about to grow, to omit the tail as a valid square (because I'm growing) #broken
-    print("Making class attributes")
     
     Storage_dict    = {} # Stores the health of an individual snake
 
@@ -40,7 +38,7 @@ class GameBoard():
         if data == None:
             print("Data not set... its going to crash")
             return
-
+        self.data = data
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
@@ -100,8 +98,8 @@ class GameBoard():
         you_head = data["you"]["body"][0]
         self.board[you_head["x"]][you_head["y"]] = 4
 
-        print("This is the created board")
-        self.printBoard()
+        # print("This is the created board")
+        # self.printBoard()
 
     def printBoard(self):
         for x in range(0, self.height):
@@ -133,14 +131,11 @@ class GameBoard():
                 continue
 
 
-            print("queue:", queue)
-            print("tile: ", end='')
-            print(str(tile))
+            # print("queue:", queue)
+            # print("tile: ", end='')
+            # print(str(tile))
 
             tile_val = self.board[tile.x][tile.y]
-
-            if(isinstance(tile_val,list)):
-                tile_val = tile_val[0]
 
             if str(tile) in visited:
                 continue
@@ -200,8 +195,8 @@ class GameBoard():
         else:
             GameBoard.DidIJustEat = False
         
-        print("The tile I am going to is: ",temp)
-        print("tile value of: ",self.board[temp.x][temp.y])
+        # print("The tile I am going to is: ",temp)
+        # print("tile value of: ",self.board[temp.x][temp.y])
 
         diff_x = start.x - temp.x
         diff_y = start.y - temp.y
@@ -225,65 +220,92 @@ class GameBoard():
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
+        
         if(GameBoard.AmIAlpha()):
             return True
+
+        
         for point in points:
-            try:
-                if(self.board[point.x][point.y]==1):
-                    return False
-            except IndexError:
-                pass
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
+                continue
+
+            if(self.board[point.x][point.y]==1):
+                for snake in self.data["board"]["snakes"]:
+                    print("length of snakes",len(self.data["board"]["snakes"]))
+                    print("snake.x: ",snake["body"][0]["x"]," snake.y: ",snake["body"][0]["y"])
+                    print("point.x: ",point.x," point.y: ",point.y)
+                    print(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y))
+                    if(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y)):
+                        count = 0
+                        for bodypart in snake["body"]:
+                            count+=1
+                        if(GameBoard.AmIAlpha(count)):
+                            return True
+                        break
+                return False
         return True
 
     #Returns a list of good points (IN STR FORMAT)
     def neighbors(self,tile): 
         invalid_squares = [1,2,4,5]
-
+        head = None
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         good_points = []
         for point in points:
-            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0 or (self.board[point.x][point.y] in invalid_squares):
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
+                continue
+            if(self.board[point.x][point.y]==1):
+                head = point       
+            if (self.board[point.x][point.y] in invalid_squares):
                 continue
             good_points.append(point)
-        return good_points
+        return good_points,head
 
     # Returns True if the next tile is a trapped tile 
     # A tile is considered to be trapped if there are no possible moves after
     def trap_protocol(self,tile,previous_tile=None):
-        searching = self.neighbors(tile)
-        print("This is the tile: ",tile)
+        searching, head = self.neighbors(tile)
+        
         if(previous_tile!=None):
             count=0
-            print("searching: ",searching)
-            print("removing this tile: ", previous_tile)
             for square in searching:
                 if(square.x==previous_tile.x and square.y==previous_tile.y):
                     searching.pop(count)
                     break
                 count+=1
-        print("searching after",searching)
+
         if(len(searching)>1):
             return False
         elif(len(searching)==0):
-            print("returning true")
             return True
-        else:  
-            print("Keep checking!:" )
-            print("This is the tile again to check: ", tile)
+        else:
+            if(head!=None):          
+                vector1 = Point(x=searching[0].x-tile.x,y=searching[0].y-tile.y)
+                vector2 = Point(x=head.x-tile.x,y=head.y-tile.y)
+                dot_product = vector1.x*vector2.x + vector1.y*vector2.y
+                print(dot_product)
+                if(dot_product==0):
+                    return True
             previous_tile = Point(x=tile.x,y=tile.y)
-            print(previous_tile)
             return self.trap_protocol(tile=searching[0],previous_tile=previous_tile)
 
+
     @staticmethod
-    def AmIAlpha():
+    def AmIAlpha(count=None):
+        if(count!=None):
+            if(GameBoard.MyBodyCount>count):
+                return True
+            else:
+                return False
+        
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount):
             return True
-        return False 
+        else:
+            return False 
     
     '''
     TODO: this GetLength method
     Initial Ideas: This will make skippy less likely to go into trapped squares 
-
     Fallbacks: Not sure if I need a limit to how many squares skippy should look at (I'm guessing the x (the dimension of the board)) most likely will need to limit
     '''
     # This method will find the amount of available squares 
@@ -291,24 +313,11 @@ class GameBoard():
     def GetLength(self):
         pass
 
-
-    # TODO:
-    # Stores the health of an individual snake
-    # health = health of the snake , id = unique id of the snake 
-    # dictionary will be in the form of {id:health}
-    @staticmethod
-    def Storage(id_string,health):
-        GameBoard.Storage_dict[id_string]=health
-
-
-
     # Will Trap a snake in a corner situation 
 
     '''
-
     Get relative direction of enemy snake
     https://play.battlesnake.com/g/bf1f56d2-403e-482d-a324-8d0222a0cdb1/#
-
     my head is at: (3,1) 
     for example ((1,1) (9,1) (1,9) (9,9)) for 11x11 grid 
         if (((head.x == edge.x) or (head.y==edge.y)) and (im not at the width or height)) and (enemeny head is at the edge and I'm beside it +1):
@@ -317,29 +326,21 @@ class GameBoard():
             return -1
         else: 
             return -1
-
-
         to see how I am inside I need to get my head's coords 
     
     if(im inside of ((1,1) (9,1) (1,9) (9,9)))
-
     '''
     @staticmethod
     def TrapKill():
         pass
 
-
-
-
-
-
     # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
     def turtle(self,data):
         move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        # print("CountMyBody: ", GameBoard.MyBodyCount)
+        # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         head = data["you"]["body"][0]
-        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<18): 
+        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<80): 
             move_data = GameBoard.bfs(self,Point(data=head), 7) #go for food
         elif(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount):
             move_data = GameBoard.bfs(self,Point(data=head), 6,False,False) #go for tail
@@ -347,9 +348,9 @@ class GameBoard():
 
     def kill_snakes(self, data):
         move_data = -1
-        print("CountMyBody: ", GameBoard.MyBodyCount)
-        print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
-        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50):
+        # print("CountMyBody: ", GameBoard.MyBodyCount)
+        # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
+        if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount+1 and data["turn"]>50 and data["you"]["health"]>28):
             head = data["you"]["body"][0]
             move_data = GameBoard.bfs(self,Point(data=head), 1) # go for kill 
         return move_data
