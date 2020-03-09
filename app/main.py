@@ -112,9 +112,9 @@ def move():
     head_y = int(data["you"]["body"][0]["y"])
     shout = "I did not eat food"
     if(direction=="up"):
-        head_y+=1
-    elif(direction=="down"):
         head_y-=1
+    elif(direction=="down"):
+        head_y+=1
     elif(direction=="right"):
         head_x+=1
     elif(direction=="left"):
