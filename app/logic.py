@@ -38,7 +38,7 @@ class GameBoard():
         if data == None:
             print("Data not set... its going to crash")
             return
-
+        self.data = data
         self.height = data["board"]["height"]
         self.width = data["board"]["width"]
         self.board = []  # array of arrays
@@ -220,14 +220,28 @@ class GameBoard():
     # return true if the tile is safe
     def safety_protocol(self,tile, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
+        
         if(GameBoard.AmIAlpha()):
             return True
+
+        
         for point in points:
-            try:
-                if(self.board[point.x][point.y]==1):
-                    return False
-            except IndexError:
-                pass
+            if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
+                continue
+
+            if(self.board[point.x][point.y]==1):
+                for snake in self.data["board"]["snakes"]:
+                    print(snake["body"][0]["x"])
+                    print(point.x)
+                    if(str(snake["body"][0]["x"])==point.x and str(snake["body"][0]["y"])==point.y):
+                        count = 0
+                        for bodypart in snake["body"]:
+                            count+=1
+                        break
+                if(GameBoard.AmIAlpha(count)):
+                    return True
+
+                return False
         return True
 
     #Returns a list of good points (IN STR FORMAT)
@@ -276,10 +290,17 @@ class GameBoard():
 
 
     @staticmethod
-    def AmIAlpha():
+    def AmIAlpha(count=None):
+        if(count!=None):
+            if(GameBoard.MyBodyCount>count):
+                return True
+            else:
+                return False
+        
         if(GameBoard.MyBodyCount>GameBoard.SnakeBodyCount):
             return True
-        return False 
+        else:
+            return False 
     
     '''
     TODO: this GetLength method
