@@ -108,9 +108,22 @@ def move():
     
     # print("Time elapsed: ",end - start)
     matrix = board.GetBoard()
+    head_x = int(data["you"]["body"][0]["x"])
+    head_y = int(data["you"]["body"][0]["y"])
+    shout = "I did not eat food"
+    if(direction=="up"):
+        head_y+=1
+    elif(direction=="down"):
+        head_y-=1
+    elif(direction=="right"):
+        head_x+=1
+    elif(direction=="left"):
+        head_x-=1
+    
+    if(matrix[head_x][head_y]==7):
+        shout = "I just ate food"
 
-
-    return move_response(direction,str(data["turn"]))
+    return move_response(direction,shout)
 
 @bottle.post('/end')
 def end():

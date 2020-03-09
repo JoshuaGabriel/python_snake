@@ -100,7 +100,7 @@ class GameBoard():
                 print(self.board[y][x], end=' ')
 
             print()
-        print(GameBoard.DidIJustEat)
+        print()
         print(self.Storage_dict)
 
     def bfs(self, start, num, status_safety=True,status_trap=True):
@@ -138,7 +138,7 @@ class GameBoard():
             if(tile==start):
                 continue
 
-            if (GameBoard.DidIJustEat) and (tile_val == 6) :
+            if (json.dumps(self.data["you"]["shout"])=="I just ate food") and (tile_val == 6) :
                 continue
 
             if(not(self.safety_protocol(tile,num)) and status_safety):
@@ -179,13 +179,6 @@ class GameBoard():
         
         while temp in pg: # gets where the end point was generated from 
             temp = pg[temp]
-
-
-        if(self.board[temp.x][temp.y]==7):
-            GameBoard.DidIJustEat = True
-        else:
-            GameBoard.DidIJustEat = False
-        
         # print("The tile I am going to is: ",temp)
         # print("tile value of: ",self.board[temp.x][temp.y])
 
@@ -215,10 +208,10 @@ class GameBoard():
 
             if(self.board[point.x][point.y]==1):
                 for snake in self.data["board"]["snakes"]:
-                    print("length of snakes",len(self.data["board"]["snakes"]))
-                    print("snake.x: ",snake["body"][0]["x"]," snake.y: ",snake["body"][0]["y"])
-                    print("point.x: ",point.x," point.y: ",point.y)
-                    print(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y))
+                    # print("length of snakes",len(self.data["board"]["snakes"]))
+                    # print("snake.x: ",snake["body"][0]["x"]," snake.y: ",snake["body"][0]["y"])
+                    # print("point.x: ",point.x," point.y: ",point.y)
+                    # print(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y))
                     if(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y)):
                         count = len(snake["body"])
                         if(GameBoard.AmIAlpha(count)):
