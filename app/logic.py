@@ -158,7 +158,7 @@ class GameBoard():
 
     def enqueue_around_head(self, tile, queue):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-        valid_tiles = [0,6,7]
+        valid_tiles = [0,3,6,7]
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0: # to check if our value is out of bounds
                 continue # if it is out of bounds, the iteration is skipped
