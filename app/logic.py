@@ -223,9 +223,7 @@ class GameBoard():
                     print("point.x: ",point.x," point.y: ",point.y)
                     print(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y))
                     if(str(snake["body"][0]["x"])==str(point.x) and str(snake["body"][0]["y"])==str(point.y)):
-                        count = 0
-                        for bodypart in snake["body"]:
-                            count+=1
+                        count = len(snake["body"])
                         if(GameBoard.AmIAlpha(count)):
                             return True
                         break
