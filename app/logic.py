@@ -231,8 +231,8 @@ class GameBoard():
 
             if(self.board[point.x][point.y]==1):
                 for snake in self.data["board"]["snakes"]:
-                    print(snake["body"][0]["x"])
-                    print(point.x)
+                    print("snake.x",snake["body"][0]["x"])
+                    print("point.x",point.x)
                     if(str(snake["body"][0]["x"])==point.x and str(snake["body"][0]["y"])==point.y):
                         count = 0
                         for bodypart in snake["body"]:
@@ -345,7 +345,7 @@ class GameBoard():
         # print("CountMyBody: ", GameBoard.MyBodyCount)
         # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         head = data["you"]["body"][0]
-        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<65): 
+        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<80): 
             move_data = GameBoard.bfs(self,Point(data=head), 7) #go for food
         elif(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount):
             move_data = GameBoard.bfs(self,Point(data=head), 6,False,False) #go for tail
