@@ -1,3 +1,4 @@
+from json import dumps
 class Point:
     def __init__(self, data=None, x=0, y=0):
         if data != None:
@@ -138,7 +139,7 @@ class GameBoard():
             if(tile==start):
                 continue
 
-            if (json.dumps(self.data["you"]["shout"])=="I just ate food") and (tile_val == 6) :
+            if (dumps(self.data["you"]["shout"])=="I just ate food") and (tile_val == 6) :
                 continue
 
             if(not(self.safety_protocol(tile,num)) and status_safety):
