@@ -315,7 +315,7 @@ class GameBoard():
         # print("CountMyBody: ", GameBoard.MyBodyCount)
         # print("CountSnakeBody: ", GameBoard.SnakeBodyCount)
         head = data["you"]["body"][0]
-        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<80): 
+        if(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount and data["you"]["health"]<50): 
             move_data = GameBoard.bfs(self,Point(data=head), 7) #go for food
         elif(GameBoard.MyBodyCount+7<GameBoard.SnakeBodyCount):
             move_data = GameBoard.bfs(self,Point(data=head), 6,False,False) #go for tail
