@@ -334,11 +334,6 @@ class GameBoard():
     def TrapKill():
         pass
 
-
-
-
-
-
     # implement a turtle and survive strategy for super late game scenario and we are smaller by a lot
     def turtle(self,data):
         move_data = -1
