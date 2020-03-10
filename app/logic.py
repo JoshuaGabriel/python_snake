@@ -102,7 +102,6 @@ class GameBoard():
 
             print()
         print()
-        print(self.Storage_dict)
 
     def bfs(self, start, num, status_safety=True,status_trap=True):
         """
