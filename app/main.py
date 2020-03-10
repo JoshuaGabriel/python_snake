@@ -90,6 +90,10 @@ def move():
     if(move_data==-1):
         # print("trying enemy tail")
         move_data = board.bfs(Point(data=head), 3, True,False) # go for enemy tail
+    
+    if(move_data==-1):
+        # print("trying enemy tail")
+        move_data = board.bfs(Point(data=head), 3, False,False) # go for enemy tail
 
     if(move_data==-1):
         # print("trying empty space")
