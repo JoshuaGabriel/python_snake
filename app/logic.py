@@ -141,7 +141,7 @@ class GameBoard():
             if (dumps(self.data["you"]["shout"])=="I just ate food") and (tile_val == 6) :
                 continue
 
-            if(not(self.safety_protocol(tile,num)) and status_safety):
+            if(not(self.safety_protocol(tile)) and status_safety):
                 continue
 
             if(self.trap_protocol(tile) and status_trap):
@@ -167,9 +167,11 @@ class GameBoard():
 
     def enqueue_around_point(self, tile, queue, visted, parent_graph, num):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
-    
+        
+        safety = self.safety_protocol(tile)
+
         for point in points:
-            if (not (point in visted)):
+            if (not (point in visted) and safety):
                 queue.append(point)
                 parent_graph[point] = tile  # The points point to the tile
 
@@ -196,7 +198,7 @@ class GameBoard():
 
     # returns false if the tile is dangerous (beside an opponent snake head)
     # return true if the tile is safe
-    def safety_protocol(self,tile, num):
+    def safety_protocol(self,tile):
         points = [Point(x=tile.x, y=(tile.y - 1)), Point(x=tile.x, y=(tile.y + 1)), Point(x=(tile.x - 1), y=tile.y), Point(x=(tile.x + 1), y=tile.y)]
         
         if(GameBoard.AmIAlpha()):
