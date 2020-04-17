@@ -231,7 +231,7 @@ class GameBoard():
         for point in points:
             if point.x >= self.width or point.x < 0 or point.y >= self.height or point.y < 0:
                 continue
-            if(self.board[point.x][point.y]==1):
+            if(self.board[point.x][point.y]==1 or self.board[point.x][point.y]==2):
                 head = point       
             if (self.board[point.x][point.y] in invalid_squares):
                 continue
