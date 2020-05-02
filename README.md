@@ -1,2 +1,3 @@
 # Battlesnake2020
-Battlesnake made with python using breadth first search
+## This is the battlesnake that made it to the semifinals of the Stay Home and Code (2020) Rookie division.
+## Currently top 30 snake in global arena.
