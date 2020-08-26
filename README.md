@@ -1,3 +1,5 @@
 # Battlesnake2020
-### This is the battlesnake that made it to the semifinals of the Stay Home and Code (2020) Rookie division.
-### Currently top 30 snake in global arena.
+Battlesnake Acomplishments:
+top 4 Stay Home and Code Rookie division (April 2020)
+top 8 Battlesnake at Communitech Student division (June 2020)
+
